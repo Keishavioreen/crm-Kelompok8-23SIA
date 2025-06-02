@@ -189,7 +189,7 @@ export default function Dashboard() {
           <ul className="list-disc list-inside">
             <li>Offline: Rp {salesSummary.penjualanPlatform.offline.toLocaleString()}</li>
             <li>E-Commerce: Rp {salesSummary.penjualanPlatform.ecommerce.toLocaleString()}</li>
-            <li>Marketplace: rp {salesSummary.penjualanPlatform.marketplace.toLocaleString()}</li>
+            <li>Marketplace: Rp {salesSummary.penjualanPlatform.marketplace.toLocaleString()}</li>
           </ul>
         </div>
       </section>
