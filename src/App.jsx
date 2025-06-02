@@ -4,6 +4,8 @@ import Produk from './pages/Produk'
 import Dashboard from './pages/Dashboard'
 import SalesManagement from './pages/SalesManagement'
 import CustomerManagement from './pages/CustomerManagement'
+import Chatbot from './components/Chatbot'
+
 
 export default function App() {
   return (
@@ -14,6 +16,7 @@ export default function App() {
           <Route path='/produk' element={< Produk/>} />
            <Route path='Penjualan' element={<SalesManagement />} />
           <Route path='/pelanggan' element={< CustomerManagement/>} />
+           <Route path='Chatbot' element={<Chatbot  />} />
         </Route>
       </Routes>
     </>
