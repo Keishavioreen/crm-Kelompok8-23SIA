@@ -5,34 +5,32 @@ import {
   Box,           // untuk produk
   BarChart2,     // untuk laporan
   Settings,      // untuk pengaturan akun
-  User,
   LogIn,
   UserPlus,
-  BarChart3,
-} from 'lucide-react'
-import { Link, useLocation } from 'react-router-dom'
+} from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 
 const menuItems = [
   { name: 'Dashboard', icon: <LayoutDashboard />, path: '/' },
   { name: 'Produk', icon: <Box />, path: '/produk' },
   { name: 'Laporan', icon: <BarChart2 />, path: '/laporan' },
-   { name: 'Penjualan', icon: <ShoppingCart />, path: '/Penjualan' }
-  { name: 'Data Pelanggan', icon: <BarChart2 />, path: '/pelanggan' },
-]
+  { name: 'Penjualan', icon: <ShoppingCart />, path: '/penjualan' },
+  { name: 'Data Pelanggan', icon: <Users />, path: '/pelanggan' },
+];
 
 const accountItems = [
   { name: 'Pengaturan Akun', icon: <Settings />, path: '/akun' },
   { name: 'Sign In', icon: <LogIn />, path: '/signin' },
   { name: 'Sign Up', icon: <UserPlus />, path: '/signup' },
-]
+];
 
 const Sidebar = () => {
-  const location = useLocation()
+  const location = useLocation();
 
-  const isActive = (path) => location.pathname === path
+  const isActive = (path) => location.pathname === path;
 
   return (
-    <aside className="bg-white w-64 h-screen shadow-lg px-4 py-6 hidden md:block">
+    <aside className="bg-white w-64 h-screen shadow-lg px-4 py-6 hidden md:block overflow-y-auto">
       <div className="text-xl font-bold mb-8 text-purple-700">Century</div>
       <nav className="space-y-1">
         {menuItems.map((item) => (
@@ -69,9 +67,7 @@ const Sidebar = () => {
         ))}
       </nav>
     </aside>
-  )
-}
+  );
+};
 
-export default Sidebar
-
-
+export default Sidebar;
