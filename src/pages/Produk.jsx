@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function ProductManagement() {
+  const navigate = useNavigate();
   const [products, setProducts] = useState(() => {
     const stored = localStorage.getItem("products");
     return stored ? JSON.parse(stored) : [];
   });
+
   const [showForm, setShowForm] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
   const [formData, setFormData] = useState({
     code: "",
     name: "",
     type: "",
-    stock: "",
     price: "",
     expired: "",
     imageFile: null,
@@ -40,8 +42,8 @@ export default function ProductManagement() {
   };
 
   const handleAddOrUpdateProduct = () => {
-    const { code, name, type, stock, price, expired, imageUrl } = formData;
-    if (!code || !name || !type || !stock || !price || !expired || !imageUrl) {
+    const { code, name, type, price, expired, imageUrl } = formData;
+    if (!code || !name || !type || !price || !expired || !imageUrl) {
       alert("Semua kolom harus diisi");
       return;
     }
@@ -51,7 +53,6 @@ export default function ProductManagement() {
       code,
       name,
       type,
-      stock: parseInt(stock),
       price: parseFloat(price),
       expired,
       imageUrl,
@@ -69,7 +70,6 @@ export default function ProductManagement() {
       code: "",
       name: "",
       type: "",
-      stock: "",
       price: "",
       expired: "",
       imageFile: null,
@@ -95,31 +95,38 @@ export default function ProductManagement() {
   };
 
   const isExpired = (date) => new Date(date) < new Date();
-  const isLowStock = (stock) => stock <= 10;
 
   return (
     <div className="p-6 max-w-5xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Manajemen Produk Apotek</h1>
-
-      <button
-        onClick={() => {
-          setShowForm((prev) => !prev);
-          setFormData({
-            code: "",
-            name: "",
-            type: "",
-            stock: "",
-            price: "",
-            expired: "",
-            imageFile: null,
-            imageUrl: "",
-          });
-          setEditIndex(null);
-        }}
-        className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-      >
-        {showForm ? "Batal" : "Tambah Produk"}
-      </button>
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-2xl font-bold">Manajemen Produk Apotek</h1>
+        <div className="flex space-x-2">
+          <button
+            onClick={() => {
+              setShowForm((prev) => !prev);
+              setFormData({
+                code: "",
+                name: "",
+                type: "",
+                price: "",
+                expired: "",
+                imageFile: null,
+                imageUrl: "",
+              });
+              setEditIndex(null);
+            }}
+            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+          >
+            {showForm ? "Batal" : "Tambah Produk"}
+          </button>
+          <button
+            onClick={() => navigate("/stok-obat")}
+            className="px-4 py-2 bg-green-700 text-white rounded hover:bg-green-800"
+          >
+            Stok Obat
+          </button>
+        </div>
+      </div>
 
       {showForm && (
         <div className="mb-6 p-4 border border-gray-300 rounded bg-white shadow-sm">
@@ -157,17 +164,6 @@ export default function ProductManagement() {
                 <option value="Alkes">Alat Kesehatan</option>
                 <option value="Suplemen">Suplemen</option>
               </select>
-            </div>
-            <div>
-              <label className="block mb-1 font-medium">Stok</label>
-              <input
-                type="number"
-                name="stock"
-                value={formData.stock}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border rounded"
-                min="0"
-              />
             </div>
             <div>
               <label className="block mb-1 font-medium">Harga</label>
@@ -225,7 +221,6 @@ export default function ProductManagement() {
               <th className="px-4 py-2">Kode</th>
               <th className="px-4 py-2">Nama</th>
               <th className="px-4 py-2">Jenis</th>
-              <th className="px-4 py-2 text-right">Stok</th>
               <th className="px-4 py-2 text-right">Harga</th>
               <th className="px-4 py-2 text-center">Kadaluarsa</th>
               <th className="px-4 py-2 text-center">Aksi</th>
@@ -247,12 +242,6 @@ export default function ProductManagement() {
                 <td className="px-4 py-2">{product.code}</td>
                 <td className="px-4 py-2">{product.name}</td>
                 <td className="px-4 py-2">{product.type}</td>
-                <td className="px-4 py-2 text-right">
-                  {product.stock}
-                  {isLowStock(product.stock) && (
-                    <span className="ml-2 text-xs text-red-500">(Rendah)</span>
-                  )}
-                </td>
                 <td className="px-4 py-2 text-right">
                   {new Intl.NumberFormat("id-ID", {
                     style: "currency",
