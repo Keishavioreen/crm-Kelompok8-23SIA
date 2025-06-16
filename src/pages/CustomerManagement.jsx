@@ -13,8 +13,6 @@ export default function CustomerManagement() {
     phone: "",
     address: "",
     birthDate: "",
-    riwayat: "",
-    penyakit: "",
     gender: "",
   });
 
@@ -31,8 +29,8 @@ export default function CustomerManagement() {
   };
 
   const handleAddOrUpdateCustomer = () => {
-    const { name, phone, address, birthDate, riwayat, penyakit, gender } = formData;
-    if (!name || !phone || !address || !birthDate || !riwayat || !penyakit || !gender) {
+    const { name, phone, address, birthDate,  gender } = formData;
+    if (!name || !phone || !address || !birthDate || !gender) {
       alert("Semua kolom harus diisi");
       return;
     }
@@ -43,8 +41,6 @@ export default function CustomerManagement() {
       phone,
       address,
       birthDate,
-      riwayat,
-      penyakit,
       gender,
     };
 
@@ -61,8 +57,6 @@ export default function CustomerManagement() {
       phone: "",
       address: "",
       birthDate: "",
-      riwayat: "",
-      penyakit: "",
       gender: "",
     });
     setShowForm(false);
@@ -108,8 +102,6 @@ export default function CustomerManagement() {
             phone: "",
             address: "",
             birthDate: "",
-            riwayat: "",
-            penyakit: "",
             gender: "",
           });
           setEditIndex(null);
