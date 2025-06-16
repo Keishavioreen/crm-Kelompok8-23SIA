@@ -16,7 +16,9 @@ const menuItems = [
   { name: 'Dashboard', icon: <LayoutDashboard />, path: '/' },
   { name: 'Produk', icon: <Box />, path: '/produk' },
   { name: 'Laporan', icon: <BarChart2 />, path: '/laporan' },
-   { name: 'Penjualan', icon: <ShoppingCart />, path: '/Penjualan' }
+  { name: 'Penjualan', icon: <ShoppingCart />, path: '/Penjualan' },
+  { name: 'FAQ', icon: <BarChart3 />, path: '/FAQ' },
+  { name: 'KelolaTransaksi', icon: <BarChart3 />, path: '/Transaksi' }
 ]
 
 const accountItems = [
