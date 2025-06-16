@@ -7,6 +7,8 @@ import CustomerManagement from './pages/CustomerManagement'
 import StokObat from './pages/StokObat'
 import Laporan from './pages/Laporan'
 import Chatbot from './components/Chatbot'
+import Segmentasi from './pages/segmentasi'
+
 
 
 export default function App() {
@@ -21,6 +23,10 @@ export default function App() {
           <Route path="/stok-obat" element={<StokObat/>} />
           <Route path="/laporan" element={<Laporan/>} />
           <Route path='Chatbot' element={<Chatbot/>} />
+          <Route path="/pelanggan" element={<CustomerManagement />}>
+            <Route path="segmentasi" element={<Segmentasi />} />
+          </Route>
+          <Route path='Chatbot' element={<Chatbot  />} />
         </Route>
       </Routes>
     </>
