@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { NavLink,Outlet } from "react-router-dom";
 
 export default function CustomerManagement() {
   const [customers, setCustomers] = useState(() => {
@@ -12,6 +13,8 @@ export default function CustomerManagement() {
     phone: "",
     address: "",
     birthDate: "",
+    riwayat: "",
+    penyakit: "",
     gender: "",
   });
 
@@ -28,8 +31,8 @@ export default function CustomerManagement() {
   };
 
   const handleAddOrUpdateCustomer = () => {
-    const { name, phone, address, birthDate, gender } = formData;
-    if (!name || !phone || !address || !birthDate || !gender) {
+    const { name, phone, address, birthDate, riwayat, penyakit, gender } = formData;
+    if (!name || !phone || !address || !birthDate || !riwayat || !penyakit || !gender) {
       alert("Semua kolom harus diisi");
       return;
     }
@@ -40,6 +43,8 @@ export default function CustomerManagement() {
       phone,
       address,
       birthDate,
+      riwayat,
+      penyakit,
       gender,
     };
 
@@ -56,6 +61,8 @@ export default function CustomerManagement() {
       phone: "",
       address: "",
       birthDate: "",
+      riwayat: "",
+      penyakit: "",
       gender: "",
     });
     setShowForm(false);
@@ -77,10 +84,22 @@ export default function CustomerManagement() {
     }
   };
 
-  return (
-    <div className="p-6 max-w-5xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Manajemen Pelanggan Apotek</h1>
+  if (location.pathname === "/pelanggan/segmentasi") {
+    return <Outlet />;
+  }
+ 
 
+  return (
+    <div className="p-6 ">
+      <h1 className="text-2xl font-bold mb-4">Manajemen Pelanggan Apotek</h1>
+     <div className="mt-4 space-x-4 mb-10">
+        {/* Update to full path */}
+        <NavLink to="/pelanggan/segmentasi" className="text-blue-600 hover:underline">Segmentasi Pelanggan</NavLink>
+      </div>
+      <div className="mt-6">
+      
+        <Outlet />
+      </div>
       <button
         onClick={() => {
           setShowForm((prev) => !prev);
@@ -89,6 +108,8 @@ export default function CustomerManagement() {
             phone: "",
             address: "",
             birthDate: "",
+            riwayat: "",
+            penyakit: "",
             gender: "",
           });
           setEditIndex(null);
@@ -173,6 +194,8 @@ export default function CustomerManagement() {
               <th className="px-4 py-2">Alamat</th>
               <th className="px-4 py-2 text-center">Tanggal Lahir</th>
               <th className="px-4 py-2 text-center">Jenis Kelamin</th>
+              <th className="px-4 py-2 text-center">Riwayat</th>
+              <th className="px-4 py-2 text-center">Penyakit</th>
               <th className="px-4 py-2 text-center">Aksi</th>
             </tr>
           </thead>

@@ -5,6 +5,8 @@ import Dashboard from './pages/Dashboard'
 import SalesManagement from './pages/SalesManagement'
 import CustomerManagement from './pages/CustomerManagement'
 import Chatbot from './components/Chatbot'
+import Segmentasi from './pages/segmentasi'
+
 
 
 export default function App() {
@@ -14,9 +16,11 @@ export default function App() {
         <Route element={<MainLayout />}>
           <Route path='/' element={<Dashboard />} />
           <Route path='/produk' element={< Produk/>} />
-           <Route path='Penjualan' element={<SalesManagement />} />
-          <Route path='/pelanggan' element={< CustomerManagement/>} />
-           <Route path='Chatbot' element={<Chatbot  />} />
+          <Route path='Penjualan' element={<SalesManagement />} />
+          <Route path="/pelanggan" element={<CustomerManagement />}>
+            <Route path="segmentasi" element={<Segmentasi />} />
+          </Route>
+          <Route path='Chatbot' element={<Chatbot  />} />
         </Route>
       </Routes>
     </>
