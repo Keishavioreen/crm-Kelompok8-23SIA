@@ -7,6 +7,7 @@ import {
   Settings,      // untuk pengaturan akun
   LogIn,
   UserPlus,
+  BarChart3,
 } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import "./color.css";
