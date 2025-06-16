@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink,Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 
 export default function CustomerManagement() {
   const [customers, setCustomers] = useState(() => {
@@ -29,7 +29,7 @@ export default function CustomerManagement() {
   };
 
   const handleAddOrUpdateCustomer = () => {
-    const { name, phone, address, birthDate,  gender } = formData;
+    const { name, phone, address, birthDate, gender } = formData;
     if (!name || !phone || !address || !birthDate || !gender) {
       alert("Semua kolom harus diisi");
       return;
@@ -81,17 +81,19 @@ export default function CustomerManagement() {
   if (location.pathname === "/pelanggan/segmentasi") {
     return <Outlet />;
   }
- 
 
   return (
-    <div className="p-6 ">
+    <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Manajemen Pelanggan Apotek</h1>
-     <div className="mt-4 space-x-4 mb-10">
-        {/* Update to full path */}
-        <NavLink to="/pelanggan/segmentasi" className="text-blue-600 hover:underline">Segmentasi Pelanggan</NavLink>
+      <div className="mt-4 space-x-4 mb-10">
+        <NavLink
+          to="/pelanggan/segmentasi"
+          className="text-blue-600 hover:underline"
+        >
+          Segmentasi Pelanggan
+        </NavLink>
       </div>
       <div className="mt-6">
-      
         <Outlet />
       </div>
       <button
@@ -194,7 +196,7 @@ export default function CustomerManagement() {
           <tbody>
             {customers.length === 0 ? (
               <tr>
-                <td colSpan="6" className="text-center py-4 text-gray-500">
+                <td colSpan="8" className="text-center py-4 text-gray-500">
                   Tidak ada pelanggan ditambahkan.
                 </td>
               </tr>
@@ -206,6 +208,8 @@ export default function CustomerManagement() {
                   <td className="px-4 py-2">{cust.address}</td>
                   <td className="px-4 py-2 text-center">{cust.birthDate}</td>
                   <td className="px-4 py-2 text-center">{cust.gender}</td>
+                  <td className="px-4 py-2 text-center text-gray-400 italic">-</td>
+                  <td className="px-4 py-2 text-center text-gray-400 italic">-</td>
                   <td className="px-4 py-2 text-center space-x-2">
                     <button
                       onClick={() => handleEdit(index)}
