@@ -31,8 +31,6 @@ const Sidebar = () => {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <aside className="bg-white w-64 h-screen shadow-lg px-4 py-6 hidden md:block">
-      <div className="text-xl font-bold mb-8 text-purple-700">Apotek Century</div>
     <aside className="bg-white w-64 h-screen shadow-lg px-4 py-6 hidden md:block overflow-y-auto">
      <img  className="block mx-auto mb-4 w-35 ml-1 h-auto relative -top-2"  src="public/logo2.png" alt="logo" />
       <nav className="space-y-1">
