@@ -1,22 +1,18 @@
-import { Routes, Route } from 'react-router-dom';
-import MainLayout from './components/MainLayout';
+import { Routes, Route } from 'react-router-dom'
+import MainLayout from './components/MainLayout'
+import Produk from './pages/Produk'
+import Dashboard from './pages/Dashboard'
+import SalesManagement from './pages/SalesManagement'
+import CustomerManagement from './pages/CustomerManagement'
+import StokObat from './pages/StokObat'
+import Laporan from './pages/Laporan'
+import Chatbot from './components/Chatbot'
+import Segmentasi from './pages/segmentasi'
 
-// Pages
-import Dashboard from './pages/Dashboard';
-import Produk from './pages/Produk';
-import SalesManagement from './pages/SalesManagement';
-import CustomerManagement from './pages/CustomerManagement';
-import OrderManagement from './pages/OrderManagement';
-import StokObat from './pages/StokObat';
-import Laporan from './pages/Laporan';
-import Chatbot from './components/Chatbot';
-import Segmentasi from './pages/segmentasi';
-import FAQ from './pages/FAQ';
-import GuideForm from './pages/GuideFrom';
-import KelolaTransaksi from './pages/KelolaTransaksi';
-
-// Context
-import { GuideProvider } from './context/GuideContext';
+import FAQ from './pages/FAQ'
+import GuideForm from './pages/GuideFrom'
+import { GuideProvider } from "./context/GuideContext";
+import KelolaTransaksi from './pages/KelolaTransaksi'
 
 
 export default function App() {
@@ -66,7 +62,6 @@ export default function App() {
            <Route path="/faq/add"    element={<GuideForm />} />   
            <Route path="/faq/:id"    element={<GuideForm />} />     
            <Route path="transaksi" element={<KelolaTransaksi />} />
-        
         </Route>
       </Routes>
     </GuideProvider>
