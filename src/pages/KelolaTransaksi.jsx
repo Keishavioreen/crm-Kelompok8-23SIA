@@ -1,4 +1,6 @@
+// KelolaTransaksi.jsx – riwayat pembelian lebih detail
 import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 
 const transaksiDummy = [
   {
@@ -8,6 +10,10 @@ const transaksiDummy = [
     tanggal: "04 Sep 2019",
     metode: "Transfer",
     status: "Completed",
+    riwayat: [
+      { nama: "Bodrex", jumlah: 3 },
+      { nama: "Paracetamol", jumlah: 1 },
+    ],
   },
   {
     id: "00002",
@@ -16,6 +22,9 @@ const transaksiDummy = [
     tanggal: "28 May 2019",
     metode: "Transfer",
     status: "Processing",
+    riwayat: [
+      { nama: "Amoxicillin", jumlah: 2 },
+    ],
   },
   {
     id: "00003",
@@ -24,54 +33,7 @@ const transaksiDummy = [
     tanggal: "23 Nov 2019",
     metode: "Transfer",
     status: "Rejected",
-  },
-  {
-    id: "00004",
-    nama: "Sinta Dewi",
-    total: "Rp 13.000",
-    tanggal: "05 Feb 2019",
-    metode: "COD",
-    status: "Completed",
-  },
-  {
-    id: "00005",
-    nama: "Ibrahim",
-    total: "Rp 1.135.000",
-    tanggal: "29 Jul 2019",
-    metode: "Transfer",
-    status: "Processing",
-  },
-  {
-    id: "00006",
-    nama: "Budi Satria",
-    total: "Rp 135.000",
-    tanggal: "15 Aug 2019",
-    metode: "Transfer",
-    status: "Completed",
-  },
-  {
-    id: "00007",
-    nama: "Maria Marpaung",
-    total: "Rp 135.000",
-    tanggal: "21 Dec 2019",
-    metode: "Kartu Kredit",
-    status: "Processing",
-  },
-  {
-    id: "00008",
-    nama: "Livanwi Widjaja",
-    total: "Rp 13.000",
-    tanggal: "30 Apr 2019",
-    metode: "Kartu Kredit",
-    status: "Processing",
-  },
-  {
-    id: "00009",
-    nama: "Mees Hillgers",
-    total: "Rp 135.000",
-    tanggal: "09 Jan 2019",
-    metode: "Kartu Kredit",
-    status: "In Transit",
+    riwayat: [],
   },
 ];
 
@@ -91,29 +53,17 @@ const getStatusStyle = (status) => {
 };
 
 export default function KelolaTransaksi() {
-  const [transaksi] = useState(transaksiDummy);
+  const [transaksi, setTransaksi] = useState(transaksiDummy);
+  const [open, setOpen] = useState(null);
+
+  const toggleOpen = (index) => {
+    setOpen(open === index ? null : index);
+  };
 
   return (
     <section className="p-6 space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-gray-800">Transaksi</h1>
-        <div className="flex gap-2 items-center text-sm">
-          <button className="border px-3 py-1.5 rounded-md bg-white hover:bg-gray-50">
-            Filter By
-          </button>
-          <select className="border px-3 py-1.5 rounded-md">
-            <option>Tanggal</option>
-          </select>
-          <select className="border px-3 py-1.5 rounded-md">
-            <option>Metode</option>
-          </select>
-          <select className="border px-3 py-1.5 rounded-md">
-            <option>Order Status</option>
-          </select>
-          <button className="text-red-500 text-sm hover:underline">
-            Reset Filter
-          </button>
-        </div>
       </div>
 
       <div className="overflow-x-auto bg-white rounded-xl shadow">
@@ -126,32 +76,62 @@ export default function KelolaTransaksi() {
               <th className="px-4 py-3">Tanggal</th>
               <th className="px-4 py-3">Metode Bayar</th>
               <th className="px-4 py-3">Status</th>
+              <th className="px-4 py-3">Riwayat</th>
             </tr>
           </thead>
           <tbody>
             {transaksi.map((t, i) => (
-              <tr key={i} className="border-t hover:bg-gray-50">
-                <td className="px-4 py-3 font-mono">{t.id}</td>
-                <td className="px-4 py-3 font-medium text-gray-800">{t.nama}</td>
-                <td className="px-4 py-3">{t.total}</td>
-                <td className="px-4 py-3">{t.tanggal}</td>
-                <td className="px-4 py-3">{t.metode}</td>
-                <td className="px-4 py-3">
-                  <span
-                    className={`text-xs px-2.5 py-1 rounded-full font-medium ${getStatusStyle(
-                      t.status
-                    )}`}
-                  >
-                    {t.status}
-                  </span>
-                </td>
-              </tr>
+              <>
+                <tr
+                  key={i}
+                  className="border-t hover:bg-gray-50 cursor-pointer"
+                  onClick={() => toggleOpen(i)}
+                >
+                  <td className="px-4 py-3 font-mono">{t.id}</td>
+                  <td className="px-4 py-3 font-medium text-gray-800">{t.nama}</td>
+                  <td className="px-4 py-3">{t.total}</td>
+                  <td className="px-4 py-3">{t.tanggal}</td>
+                  <td className="px-4 py-3">{t.metode}</td>
+                  <td className="px-4 py-3">
+                    <span
+                      className={`text-xs px-2.5 py-1 rounded-full font-medium ${getStatusStyle(
+                        t.status
+                      )}`}
+                    >
+                      {t.status}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3 flex items-center gap-1">
+                    <ChevronDown
+                      className={`w-4 h-4 transition-transform duration-200 ${
+                        open === i ? "rotate-180" : ""
+                      }`}
+                    />
+                    <span className="text-xs text-blue-600">
+                      {t.riwayat.length > 0
+                        ? `${t.riwayat.length} item`
+                        : "Tidak ada"}
+                    </span>
+                  </td>
+                </tr>
+                {open === i && t.riwayat.length > 0 && (
+                  <tr className="bg-gray-50">
+                    <td colSpan="7" className="px-4 py-3">
+                      <ul className="text-xs text-gray-700 space-y-1">
+                        {t.riwayat.map((r, idx) => (
+                          <li key={idx}>• {r.nama} — {r.jumlah} pcs</li>
+                        ))}
+                      </ul>
+                    </td>
+                  </tr>
+                )}
+              </>
             ))}
           </tbody>
         </table>
       </div>
 
-      <div className="text-xs text-gray-500">Showing 1-09 of 78</div>
+      <div className="text-xs text-gray-500">Showing 1–{transaksi.length} of 78</div>
     </section>
   );
 }

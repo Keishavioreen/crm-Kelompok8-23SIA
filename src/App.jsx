@@ -13,6 +13,8 @@ import FAQ from './pages/FAQ'
 import GuideForm from './pages/GuideFrom'
 import { GuideProvider } from "./context/GuideContext";
 import KelolaTransaksi from './pages/KelolaTransaksi'
+import KelolaAppointment from './pages/KelolaAppointment'
+import Analyticts from './pages/Analytics'
 
 
 export default function App() {
@@ -37,6 +39,8 @@ export default function App() {
            <Route path="/faq/add"    element={<GuideForm />} />   
            <Route path="/faq/:id"    element={<GuideForm />} />     
            <Route path="transaksi" element={<KelolaTransaksi />} />
+           <Route path="Appoinment" element={<KelolaAppointment />} />
+           <Route path="Analisis" element={<Analyticts />} />
         </Route>
       </Routes>
       </GuideProvider>

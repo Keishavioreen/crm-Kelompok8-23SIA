@@ -20,7 +20,9 @@ const menuItems = [
   { name: 'Data Pelanggan', icon: <Users />, path: '/pelanggan' },
   { name: 'Penjualan', icon: <ShoppingCart />, path: '/Penjualan' },
   { name: 'FAQ', icon: <BarChart3 />, path: '/FAQ' },
-  { name: 'KelolaTransaksi', icon: <BarChart3 />, path: '/Transaksi' }
+  { name: 'KelolaTransaksi', icon: <BarChart3 />, path: '/Transaksi' },
+  { name: 'KelolaAppointment', icon: <BarChart3 />, path: '/Appoinment' },
+  { name: 'Analisis', icon: <BarChart3 />, path: '/Analisis' },
 ];
 
 const accountItems = [
