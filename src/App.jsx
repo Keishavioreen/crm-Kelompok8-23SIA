@@ -13,6 +13,7 @@ import FAQ from './pages/FAQ'
 import GuideForm from './pages/GuideFrom'
 import { GuideProvider } from "./context/GuideContext";
 import KelolaTransaksi from './pages/KelolaTransaksi'
+import OrderManagement from './pages/OrderManagement'
 
 
 export default function App() {
