@@ -18,6 +18,7 @@ import KelolaTransaksi from './pages/KelolaTransaksi';
 // Context
 import { GuideProvider } from './context/GuideContext';
 
+
 export default function App() {
   return (
     <GuideProvider>
@@ -48,6 +49,24 @@ export default function App() {
           <Route path="/faq" element={<FAQ />} />
           <Route path="/faq/add" element={<GuideForm />} />
           <Route path="/faq/:id" element={<GuideForm />} />
+          <Route path='/' element={<Dashboard />} />
+          <Route path='/produk' element={< Produk/>} />
+          <Route path='Penjualan' element={<SalesManagement />} />
+          <Route path='/pelanggan' element={< CustomerManagement/>} />
+          <Route path="/stok-obat" element={<StokObat/>} />
+          <Route path="/laporan" element={<Laporan/>} />
+          <Route path='Chatbot' element={<Chatbot/>} />
+          <Route path="/pelanggan" element={<CustomerManagement />}>
+            <Route path="segmentasi" element={<Segmentasi />} />
+          </Route>
+          <Route path='Chatbot' element={<Chatbot  />} />
+           <Route path='Penjualan' element={<SalesManagement />} />
+           <Route path='Chatbot' element={<Chatbot  />} />
+           <Route path='FAQ' element={<FAQ  />} />
+           <Route path="/faq/add"    element={<GuideForm />} />   
+           <Route path="/faq/:id"    element={<GuideForm />} />     
+           <Route path="transaksi" element={<KelolaTransaksi />} />
+        
         </Route>
       </Routes>
     </GuideProvider>
