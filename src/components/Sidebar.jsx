@@ -14,7 +14,6 @@ import { Link, useLocation } from 'react-router-dom';
 import "./color.css";
 
 const menuItems = [
-<<<<<<< HEAD
   { name: 'Dashboard',         icon: <LayoutDashboard />, path: '/' },
   { name: 'Produk',            icon: <Box />,            path: '/produk' },
   { name: 'Laporan',           icon: <BarChart2 />,      path: '/laporan' },
@@ -23,7 +22,6 @@ const menuItems = [
   { name: 'Data Pelanggan',    icon: <Users />,          path: '/pelanggan' },
   { name: 'FAQ',               icon: <BarChart3 />,      path: '/faq' },
   { name: 'Kelola Transaksi',  icon: <BarChart3 />,      path: '/transaksi' },
-=======
   { name: 'Dashboard', icon: <LayoutDashboard />, path: '/' },
   { name: 'Produk', icon: <Box />, path: '/produk' },
   { name: 'Laporan', icon: <BarChart2 />, path: '/laporan' },
@@ -34,7 +32,6 @@ const menuItems = [
   { name: 'KelolaTransaksi', icon: <BarChart3 />, path: '/Transaksi' },
   { name: 'KelolaAppointment', icon: <BarChart3 />, path: '/Appoinment' },
   { name: 'Analisis', icon: <BarChart3 />, path: '/Analisis' },
->>>>>>> origin/baim
 ];
 
 const accountItems = [
