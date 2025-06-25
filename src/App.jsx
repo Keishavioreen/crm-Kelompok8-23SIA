@@ -13,14 +13,39 @@ import FAQ from './pages/FAQ'
 import GuideForm from './pages/GuideFrom'
 import { GuideProvider } from "./context/GuideContext";
 import KelolaTransaksi from './pages/KelolaTransaksi'
-
+import OrderManagement from './pages/OrderManagement'
 
 
 export default function App() {
   return (
-    <><GuideProvider>
+    <GuideProvider>
       <Routes>
+        {/* Wrapper layout yang memuat Sidebar, Header, dll */}
         <Route element={<MainLayout />}>
+          {/* Dashboard */}
+          <Route path="/" element={<Dashboard />} />
+
+          {/* Master Data */}
+          <Route path="/produk" element={<Produk />} />
+          <Route path="/stok-obat" element={<StokObat />} />
+
+          {/* Transaksional */}
+          <Route path="/penjualan" element={<SalesManagement />} />
+          <Route path="/orders" element={<OrderManagement />} />
+          <Route path="/transaksi" element={<KelolaTransaksi />} />
+
+          {/* Pelanggan & Segmentasi */}
+          <Route path="/pelanggan" element={<CustomerManagement />} />
+          <Route path="/pelanggan/segmentasi" element={<Segmentasi />} />
+
+          {/* Lain‑lain */}
+          <Route path="/laporan" element={<Laporan />} />
+          <Route path="/chatbot" element={<Chatbot />} />
+
+          {/* FAQ & panduan */}
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/faq/add" element={<GuideForm />} />
+          <Route path="/faq/:id" element={<GuideForm />} />
           <Route path='/' element={<Dashboard />} />
           <Route path='/produk' element={< Produk/>} />
           <Route path='Penjualan' element={<SalesManagement />} />
@@ -38,11 +63,8 @@ export default function App() {
            <Route path="/faq/add"    element={<GuideForm />} />   
            <Route path="/faq/:id"    element={<GuideForm />} />     
            <Route path="transaksi" element={<KelolaTransaksi />} />
-        
         </Route>
       </Routes>
-      </GuideProvider>
-    </>
-  )
+    </GuideProvider>
+  );
 }
-
