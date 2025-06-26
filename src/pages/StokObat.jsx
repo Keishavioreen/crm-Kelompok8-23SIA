@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { PackageCheck, AlertTriangle, Clock, Pencil, Trash2 } from "lucide-react";
+import { PackageCheck, AlertTriangle, Clock, Pencil, Trash2, PlusCircle } from "lucide-react";
 
 const initialObatList = [
   {
@@ -115,7 +115,7 @@ const StokObat = () => {
   };
 
   return (
-    <div className="p-6">
+    <div className="p-6 max-w-7xl mx-auto">
       <h1 className="text-2xl font-bold text-gray-800 mb-6">Stok Obat</h1>
 
       {formVisible && (
@@ -179,9 +179,9 @@ const StokObat = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <ResumeCard icon={PackageCheck} label="Total Obat" value={obatList.length} bg="#33BFBF" />
-<ResumeCard icon={AlertTriangle} label="Stok Rendah (< 10)" value={obatList.filter((o) => o.stok < 10).length} bg="#33BFBF" />
-<ResumeCard icon={Clock} label="Kadaluarsa" value={obatList.filter((o) => new Date(o.expired) < new Date()).length} bg="#33BFBF" />
-</div>
+        <ResumeCard icon={AlertTriangle} label="Stok Rendah (< 10)" value={obatList.filter((o) => o.stok < 10).length} bg="#33BFBF" />
+        <ResumeCard icon={Clock} label="Kadaluarsa" value={obatList.filter((o) => new Date(o.expired) < new Date()).length} bg="#33BFBF" />
+      </div>
 
       <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-4">
         <input
@@ -199,13 +199,13 @@ const StokObat = () => {
             {showLowStockOnly ? "Lihat Semua" : "Filter Stok Rendah"}
           </button>
           <button
-            className="bg-[#33BFBF] text-white px-4 py-2 rounded hover:bg-teal-700"
+            className="bg-[#33BFBF] text-white px-4 py-2 rounded hover:bg-teal-700 flex items-center gap-2"
             onClick={() => {
               resetForm();
               setFormVisible(true);
             }}
           >
-            + Tambah Obat
+            <PlusCircle size={18} /> Tambah Obat
           </button>
         </div>
       </div>
@@ -232,12 +232,8 @@ const StokObat = () => {
                   <td className="px-4 py-2 border">{obat.nama}</td>
                   <td className="px-4 py-2 border">{obat.kategori}</td>
                   <td className="px-4 py-2 border">Rp {obat.harga.toLocaleString()}</td>
-                  <td className={`px-4 py-2 border ${obat.stok < 10 ? "text-red-600 font-semibold" : ""}`}>
-                    {obat.stok}
-                  </td>
-                  <td className="px-4 py-2 border">
-                    {new Date(obat.expired).toLocaleDateString("id-ID")}
-                  </td>
+                  <td className={`px-4 py-2 border ${obat.stok < 10 ? "text-red-600 font-semibold" : ""}`}>{obat.stok}</td>
+                  <td className="px-4 py-2 border">{new Date(obat.expired).toLocaleDateString("id-ID")}</td>
                   <td className="px-4 py-2 border">{obat.deskripsi}</td>
                   <td className="px-4 py-2 border flex gap-2">
                     <button onClick={() => handleEdit(index)} className="text-blue-600 hover:text-blue-800">
@@ -251,33 +247,12 @@ const StokObat = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="8" className="text-center py-4 text-gray-500">
-                  Tidak ada data yang sesuai.
-                </td>
+                <td colSpan="8" className="text-center py-4 text-gray-500">Tidak ada data yang sesuai.</td>
               </tr>
             )}
           </tbody>
         </table>
       </div>
-
-      {selectedDetail && (
-        <div className="mt-6 bg-white rounded border shadow p-4">
-          <h3 className="text-lg font-semibold mb-2">Detail Obat</h3>
-          <p><strong>Kode:</strong> {selectedDetail.kode}</p>
-          <p><strong>Nama:</strong> {selectedDetail.nama}</p>
-          <p><strong>Kategori:</strong> {selectedDetail.kategori}</p>
-          <p><strong>Harga:</strong> Rp {selectedDetail.harga.toLocaleString()}</p>
-          <p><strong>Stok:</strong> {selectedDetail.stok}</p>
-          <p><strong>Kadaluarsa:</strong> {new Date(selectedDetail.expired).toLocaleDateString("id-ID")}</p>
-          <p><strong>Deskripsi:</strong> {selectedDetail.deskripsi}</p>
-          <button
-            onClick={() => setSelectedDetail(null)}
-            className="mt-4 text-red-600 hover:underline"
-          >
-            Tutup Detail
-          </button>
-        </div>
-      )}
     </div>
   );
 };
