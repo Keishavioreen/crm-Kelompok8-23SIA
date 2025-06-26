@@ -14,6 +14,11 @@ import GuideForm from './pages/GuideFrom'
 import { GuideProvider } from "./context/GuideContext";
 import KelolaTransaksi from './pages/KelolaTransaksi'
 import OrderManagement from './pages/OrderManagement'
+import LoyaltyPage from './pages/LoyaltyPage'
+import LoyaltyEdit from './pages/LoyaltyEdit'
+import Signin from './pages/Signin'
+import UserLayout from './components/UserLayout'
+import DashboardUser from './pages/DashboardUser'
 
 
 export default function App() {
@@ -21,6 +26,11 @@ export default function App() {
     <GuideProvider>
       <Routes>
         {/* Wrapper layout yang memuat Sidebar, Header, dll */}
+
+         {/* Pengaturan akun */}
+           <Route path="/signin" element={<Signin />} />
+            <Route path="/signup" element={<Signin />} />
+
         <Route element={<MainLayout />}>
           {/* Dashboard */}
           <Route path="/" element={<Dashboard />} />
@@ -41,6 +51,8 @@ export default function App() {
           {/* Lain‑lain */}
           <Route path="/laporan" element={<Laporan />} />
           <Route path="/chatbot" element={<Chatbot />} />
+          <Route path="/Loyalty" element={<LoyaltyPage />} />
+          <Route path="/LoyaltyEdit" element={<LoyaltyEdit />} />
 
           {/* FAQ & panduan */}
           <Route path="/faq" element={<FAQ />} />
@@ -64,6 +76,10 @@ export default function App() {
            <Route path="/faq/:id"    element={<GuideForm />} />     
            <Route path="transaksi" element={<KelolaTransaksi />} />
         </Route>
+
+         <Route element={<UserLayout />}>
+          <Route path="/UserDashboard" element={<DashboardUser />} />
+         </Route>
       </Routes>
     </GuideProvider>
   );

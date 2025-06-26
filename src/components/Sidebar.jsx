@@ -24,6 +24,7 @@ const menuItems = [
   { name: 'Kelola Transaksi',  icon: <BarChart3 />,      path: '/transaksi' },
   { name: 'KelolaAppointment', icon: <BarChart3 />, path: '/Appoinment' },
   { name: 'Analisis', icon: <BarChart3 />, path: '/Analisis' },
+  { name: 'Loyalty', icon: <BarChart3 />, path: '/Loyalty' },
 ];
 
 const accountItems = [
@@ -37,7 +38,7 @@ const Sidebar = () => {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <aside className="bg-white w-64 h-screen shadow-lg px-4 py-6 hidden md:block overflow-y-auto">
+    <aside className="bg-white w-64 h-full shadow-lg  px-4 py-6 hidden md:block overflow-y-auto">
       {/* LOGO */}
       <img
         className="block mx-auto mb-6 w-32 h-auto"

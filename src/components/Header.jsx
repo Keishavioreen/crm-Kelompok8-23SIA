@@ -1,9 +1,24 @@
-import { Search, User } from 'lucide-react'
+import React from "react";
+import { useLocation } from "react-router-dom";
+import { Search, User } from "lucide-react";
 
 const Header = () => {
+  const location = useLocation();
+
+  const generateBreadcrumb = () => {
+    const path = location.pathname;
+    const parts = path.split("/").filter(Boolean); // Pisahkan dan buang bagian kosong
+    if (parts.length === 0) return "Dashboard"; // Jika root, beri nama "Dashboard"
+    return parts
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1)) // Capitalize setiap bagian
+      .join(" / "); // Gabungkan dengan pemisah
+  };
+
   return (
-    <header className="flex justify-between items-center px-6 py-4 bg-white shadow-sm border-b sticky top-0 z-10">
-      <div className="text-sm text-gray-500">Pages / <span className="text-gray-900 font-semibold">Dashboard</span></div>
+    <header className="flex justify-between items-center px-6 py-4 bg-white shadow-sm border-b sticky top-0 z-10 ">
+      <div className="text-sm text-gray-500">
+        Pages / <span className="text-gray-900 font-semibold">{generateBreadcrumb()}</span>
+      </div>
       <div className="flex items-center gap-4">
         <div className="relative">
           <input
@@ -19,9 +34,7 @@ const Header = () => {
         </div>
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default Header
-
-
+export default Header;
