@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 const initialOrders = [
   {
     id: 'ORD-001',
-    customer: 'Dina Susanti',
+    kodeApotek: 'APTK-007676',
     products: [
       { name: 'Paracetamol 2 Strip', price: 15000 },
       { name: 'Vitamin C 1 Botol', price: 15000 }
@@ -13,7 +13,7 @@ const initialOrders = [
   },
   {
     id: 'ORD-002',
-    customer: 'Dina Susanti',
+    kodeApotek: 'APTK-007676',
     products: [
       { name: 'Paracetamol 2 Strip', price: 15000 }
     ],
@@ -75,7 +75,7 @@ export default function OrderManagement() {
   const filteredOrders = orders.filter(order => {
     const matchesSearch =
       order.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      order.customer.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      order.kodeApotek.toLowerCase().includes(searchTerm.toLowerCase()) ||
       order.products.some(p => p.name.toLowerCase().includes(searchTerm.toLowerCase()));
     const matchesStatus = filterStatus === '' || order.status === filterStatus;
     return matchesSearch && matchesStatus;
@@ -83,13 +83,13 @@ export default function OrderManagement() {
 
   return (
     <div className="p-4">
-      <h2 className="text-2xl font-bold mb-4">Order Management</h2>
+      <h2 className="text-2xl font-bold mb-4">Manajemen Pesanan</h2>
 
       {/* Search & Filter */}
       <div className="flex flex-col md:flex-row gap-4 mb-4">
         <input
           type="text"
-          placeholder="Cari berdasarkan ID, pelanggan, atau produk"
+          placeholder="Cari berdasarkan ID, kode apotek, atau produk"
           className="border p-2 rounded w-full md:w-1/2"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
@@ -112,7 +112,7 @@ export default function OrderManagement() {
         <thead className="bg-gray-100 text-left">
           <tr>
             <th className="p-2">ID</th>
-            <th className="p-2">Pelanggan</th>
+            <th className="p-2">Kode Apotek</th>
             <th className="p-2">Produk</th>
             <th className="p-2">Tanggal</th>
             <th className="p-2">Total</th>
@@ -134,7 +134,7 @@ export default function OrderManagement() {
                 <React.Fragment key={order.id}>
                   <tr className="border-t">
                     <td className="p-2">{order.id}</td>
-                    <td className="p-2">{order.customer}</td>
+                    <td className="p-2">{order.kodeApotek}</td>
                     <td className="p-2">{order.products.map(p => p.name).join(', ')}</td>
                     <td className="p-2">{order.date}</td>
                     <td className="p-2">Rp {total.toLocaleString()}</td>
@@ -151,8 +151,8 @@ export default function OrderManagement() {
                   {expandedId === order.id && (
                     <tr className="bg-gray-50 border-b">
                       <td colSpan="7" className="p-4">
-                        <h3 className="font-semibold mb-2">Detail Order</h3>
-                        <p><strong>Pelanggan:</strong> {order.customer}</p>
+                        <h3 className="font-semibold mb-2">Detail Pesanan</h3>
+                        <p><strong>Kode Apotek:</strong> {order.kodeApotek}</p>
                         <p><strong>Tanggal:</strong> {order.date}</p>
                         <p><strong>Total:</strong> Rp {total.toLocaleString()}</p>
 
@@ -181,11 +181,13 @@ export default function OrderManagement() {
 
                         <div className="mt-4 flex gap-2">
                           <button
-                            className="bg-green-600 text-white px-4 py-1 rounded"
+                            className="text-white px-4 py-1 rounded"
+                            style={{ backgroundColor: '#007676' }}
                             onClick={() => handleSave(order.id)}
-                          >
+                            >
                             Simpan
                           </button>
+
                           <button className="bg-gray-500 text-white px-4 py-1 rounded">
                             Kirim Notif
                           </button>
