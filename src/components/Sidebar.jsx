@@ -2,7 +2,7 @@ import {
   LayoutDashboard,
   Users,         // pelanggan
   ShoppingCart,  // penjualan
-  Box,           // produk
+  Box,           // Stok
   BarChart2,     // laporan
   Settings,      // pengaturan akun
   LogIn,
@@ -15,7 +15,7 @@ import "./color.css";
 
 const menuItems = [
   { name: 'Dashboard',         icon: <LayoutDashboard />, path: '/' },
-  { name: 'Produk',            icon: <Box />,            path: '/produk' },
+  { name: 'Stok Obat',            icon: <Box />,            path: '/stok' },
   { name: 'Laporan',           icon: <BarChart2 />,      path: '/laporan' },
   { name: 'Penjualan',         icon: <ShoppingCart />,   path: '/penjualan' },
   { name: 'Order Management',  icon: <ClipboardList />,  path: '/orders' },

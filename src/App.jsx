@@ -1,6 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
 import MainLayout from './components/MainLayout'
-import Produk from './pages/Produk'
 import Dashboard from './pages/Dashboard'
 import SalesManagement from './pages/SalesManagement'
 import CustomerManagement from './pages/CustomerManagement'
@@ -25,9 +24,7 @@ export default function App() {
           {/* Dashboard */}
           <Route path="/" element={<Dashboard />} />
 
-          {/* Master Data */}
-          <Route path="/produk" element={<Produk />} />
-          <Route path="/stok-obat" element={<StokObat />} />
+          <Route path="/stok" element={<StokObat />} />
 
           {/* Transaksional */}
           <Route path="/penjualan" element={<SalesManagement />} />
@@ -47,7 +44,6 @@ export default function App() {
           <Route path="/faq/add" element={<GuideForm />} />
           <Route path="/faq/:id" element={<GuideForm />} />
           <Route path='/' element={<Dashboard />} />
-          <Route path='/produk' element={< Produk/>} />
           <Route path='Penjualan' element={<SalesManagement />} />
           <Route path='/pelanggan' element={< CustomerManagement/>} />
           <Route path="/stok-obat" element={<StokObat/>} />
