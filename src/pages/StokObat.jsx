@@ -10,6 +10,7 @@ const initialObatList = [
     stok: 5,
     expired: "2025-07-15",
     deskripsi: "Obat penurun panas dan pereda nyeri.",
+    gambar: "", // Base64 kosong
   },
   {
     kode: "OBT-002",
@@ -19,6 +20,7 @@ const initialObatList = [
     stok: 40,
     expired: "2025-08-30",
     deskripsi: "Suplemen untuk menjaga daya tahan tubuh.",
+    gambar: "",
   },
 ];
 
@@ -34,7 +36,6 @@ const StokObat = () => {
   const [formVisible, setFormVisible] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
-  const [selectedDetail, setSelectedDetail] = useState(null);
   const [newObat, setNewObat] = useState({
     kode: "",
     nama: "",
@@ -43,6 +44,7 @@ const StokObat = () => {
     stok: "",
     expired: "",
     deskripsi: "",
+    gambar: "",
   });
 
   useEffect(() => {
@@ -58,6 +60,17 @@ const StokObat = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewObat((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setNewObat((prev) => ({ ...prev, gambar: reader.result }));
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleSaveObat = () => {
@@ -108,6 +121,7 @@ const StokObat = () => {
       stok: "",
       expired: "",
       deskripsi: "",
+      gambar: "",
     });
     setIsEditing(false);
     setEditIndex(null);
@@ -158,6 +172,18 @@ const StokObat = () => {
                 onChange={handleInputChange}
                 className="border px-4 py-2 rounded w-full"
               />
+            </div>
+            <div className="md:col-span-2">
+              <label className="text-sm text-gray-700">Gambar Produk</label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="border px-4 py-2 rounded w-full"
+              />
+              {newObat.gambar && (
+                <img src={newObat.gambar} alt="Preview" className="mt-2 h-32 object-contain" />
+              )}
             </div>
           </div>
           <div className="mt-6 flex gap-3">
@@ -215,6 +241,7 @@ const StokObat = () => {
           <thead className="bg-gray-100">
             <tr>
               <th className="px-4 py-2 border">Kode</th>
+              <th className="px-4 py-2 border">Gambar</th>
               <th className="px-4 py-2 border">Nama Obat</th>
               <th className="px-4 py-2 border">Kategori</th>
               <th className="px-4 py-2 border">Harga</th>
@@ -229,6 +256,13 @@ const StokObat = () => {
               filteredObat.map((obat, index) => (
                 <tr key={index} className="hover:bg-gray-100">
                   <td className="px-4 py-2 border">{obat.kode}</td>
+                  <td className="px-4 py-2 border">
+                    {obat.gambar ? (
+                      <img src={obat.gambar} alt={obat.nama} className="h-12 w-12 object-cover rounded" />
+                    ) : (
+                      <span className="text-gray-400">Tidak ada gambar</span>
+                    )}
+                  </td>
                   <td className="px-4 py-2 border">{obat.nama}</td>
                   <td className="px-4 py-2 border">{obat.kategori}</td>
                   <td className="px-4 py-2 border">Rp {obat.harga.toLocaleString()}</td>
@@ -247,7 +281,7 @@ const StokObat = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="8" className="text-center py-4 text-gray-500">Tidak ada data yang sesuai.</td>
+                <td colSpan="9" className="text-center py-4 text-gray-500">Tidak ada data yang sesuai.</td>
               </tr>
             )}
           </tbody>
