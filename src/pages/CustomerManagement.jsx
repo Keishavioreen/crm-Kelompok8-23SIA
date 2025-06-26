@@ -123,35 +123,35 @@ export default function CustomerManagement() {
   }
 
   return (
-    <div className="p-6 space-y-6">
-      <h1 className="text-2xl font-bold">Manajemen Pelanggan Apotek</h1>
+    <div className="p-6 space-y-6 max-w-7xl mx-auto">
+      <h1 className="text-2xl font-bold text-gray-800">Manajemen Pelanggan Apotek</h1>
 
       <div className="pb-2">
         <NavLink
           to="/pelanggan/segmentasi"
-          className="text-blue-600 hover:underline"
+          className="text-cyan-600 hover:underline"
         >
           Segmentasi Pelanggan
         </NavLink>
       </div>
 
-      <div className="flex gap-4">
-        <div className="flex-1 p-4 bg-teal-500 text-white rounded-lg shadow flex flex-col">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="bg-teal-600 text-white p-4 rounded-lg shadow">
           <div className="text-3xl mb-1">👥</div>
           <h2 className="text-sm">Total Pelanggan</h2>
           <p className="text-xl font-semibold">{customers.length} Pelanggan</p>
           <p className="text-xs">Meningkat 8% dari bulan lalu</p>
         </div>
-        <div className="flex-1 p-4 bg-white border rounded-lg shadow flex flex-col">
+        <div className="bg-white p-4 border rounded-lg shadow">
           <div className="text-3xl mb-1">🆕</div>
           <h2 className="text-sm text-gray-600">Pelanggan Baru</h2>
-          <p className="text-xl font-semibold text-black">75 Pelanggan</p>
+          <p className="text-xl font-semibold text-gray-900">75 Pelanggan</p>
           <p className="text-xs text-gray-500">Meningkat 6% dari bulan lalu</p>
         </div>
-        <div className="flex-1 p-4 bg-white border rounded-lg shadow flex flex-col">
+        <div className="bg-white p-4 border rounded-lg shadow">
           <div className="text-3xl mb-1">🔁</div>
           <h2 className="text-sm text-gray-600">Pelanggan Berulang</h2>
-          <p className="text-xl font-semibold text-black">35%</p>
+          <p className="text-xl font-semibold text-gray-900">35%</p>
           <p className="text-xs text-gray-500">Meningkat 2% dari bulan lalu</p>
         </div>
       </div>
@@ -162,12 +162,12 @@ export default function CustomerManagement() {
           placeholder="Cari berdasarkan nama, alamat, email..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full max-w-sm px-3 py-2 border rounded"
+          className="w-full md:w-1/3 px-3 py-2 border rounded shadow-sm"
         />
         <select
           value={genderFilter}
           onChange={(e) => setGenderFilter(e.target.value)}
-          className="px-3 py-2 border rounded"
+          className="px-3 py-2 border rounded shadow-sm"
         >
           <option value="all">Semua Gender</option>
           <option value="Laki-laki">Laki-laki</option>
@@ -176,22 +176,18 @@ export default function CustomerManagement() {
       </div>
 
       {editIndex !== null && (
-        <div className="p-4 bg-white border rounded shadow">
+        <div className="p-6 bg-white border rounded shadow">
           <h2 className="text-lg font-semibold mb-4">Edit Pelanggan</h2>
           <div className="grid md:grid-cols-2 gap-4">
-            {[
-              { label: "Nama", name: "name", type: "text" },
-              { label: "No. Telepon", name: "phone", type: "text" },
-              { label: "Email", name: "email", type: "email" },
-              { label: "Alamat", name: "address", type: "text" },
-              { label: "Tanggal Lahir", name: "birthDate", type: "date" },
-            ].map((field) => (
-              <div key={field.name}>
-                <label className="block mb-1 font-medium">{field.label}</label>
+            {["name", "phone", "email", "address", "birthDate"].map((field) => (
+              <div key={field}>
+                <label className="block mb-1 font-medium capitalize">
+                  {field === "birthDate" ? "Tanggal Lahir" : field === "phone" ? "No. Telepon" : field.charAt(0).toUpperCase() + field.slice(1)}
+                </label>
                 <input
-                  type={field.type}
-                  name={field.name}
-                  value={formData[field.name]}
+                  type={field === "birthDate" ? "date" : "text"}
+                  name={field}
+                  value={formData[field]}
                   onChange={handleChange}
                   className="w-full px-3 py-2 border rounded"
                 />
@@ -214,7 +210,7 @@ export default function CustomerManagement() {
           <div className="flex gap-2 mt-4">
             <button
               onClick={handleUpdateCustomer}
-              className="px-4 py-2 rounded text-white"
+              className="px-4 py-2 text-white rounded"
               style={{ backgroundColor: "#33BFBF" }}
             >
               Simpan Perubahan
