@@ -29,6 +29,7 @@ import DashboardUser from './pages/DashboardUser'
 import AkunUser from './pages/AkunUser';
 import ProductUser from './pages/Productuser';
 import FaqPage from './pages/FaqPage';
+import CartPage from './pages/CartPage';
 
 
 export default function App() {
@@ -97,6 +98,7 @@ export default function App() {
           <Route path="/Akun" element={<AkunUser />} />
           <Route path="/Produk" element={<ProductUser />} />
           <Route path="/FaqUser" element={<FaqPage />} />
+          <Route path="/Keranjang" element={<CartPage />} />
          </Route>
       </Routes>
       </AnalyticsProvider>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { supabase } from "../supabase"; // pastikan file ini ada
+import { supabase } from "../supabase";
 import { ShoppingCart } from "lucide-react";
 
 const categories = [
@@ -16,13 +16,22 @@ const ProductUser = () => {
   const [produkList, setProdukList] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Ambil data dari supabase
   useEffect(() => {
     const fetchProduk = async () => {
-      const { data, error } = await supabase
-        .from("produk")
-        .select("*")
-        .order("created_at", { ascending: false });
+      setLoading(true);
+      let query = supabase.from("produk").select("*");
+
+      if (sortOption === "newest") {
+        query = query.order("created_at", { ascending: false });
+      } else if (sortOption === "low") {
+        query = query.order("harga", { ascending: true });
+      } else if (sortOption === "high") {
+        query = query.order("harga", { ascending: false });
+      } else {
+        query = query.order("created_at", { ascending: false });
+      }
+
+      const { data, error } = await query;
 
       if (error) {
         console.error("Gagal mengambil produk:", error.message);
@@ -33,11 +42,12 @@ const ProductUser = () => {
     };
 
     fetchProduk();
-  }, []);
+  }, [sortOption]);
 
   return (
     <div className="p-6 max-w-7xl mx-auto text-gray-800">
-      <h1 className="text-3xl font-bold mb-6">Produk</h1>
+      <h1 className="text-4xl font-bold mb-6" style={{ color: "#007676" }}>Produk</h1>
+
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Sidebar */}
         <aside className="lg:w-1/4 w-full space-y-6">

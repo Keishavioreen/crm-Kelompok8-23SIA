@@ -43,7 +43,7 @@ const HeaderUser = () => {
           {/* Akun dan Keranjang */}
           <div className="flex items-center space-x-4">
             {/* Keranjang */}
-            <a href="#" className="text-gray-900 hover:text-blue-600 transition flex items-center">
+            <a href="/Keranjang" className="text-gray-900 hover:text-blue-600 transition flex items-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
