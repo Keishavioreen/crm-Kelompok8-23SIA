@@ -125,7 +125,7 @@ const StokObat = () => {
           </button>
         </div>
         <button
-          className="bg-teal-500 text-white px-4 py-2 rounded flex items-center gap-2"
+          className="bg-[#00A6A6] text-white px-4 py-2 rounded flex items-center gap-2"
           onClick={() => {
             resetForm();
             setFormVisible(true);
@@ -209,7 +209,7 @@ const StokObat = () => {
             <InputField label="Kadaluarsa" name="kadaluarsa" type="date" value={newObat.kadaluarsa} onChange={handleInputChange} />
           </form>
           <div className="flex gap-4 mt-4">
-            <button onClick={handleSaveObat} className="bg-green-500 text-white px-4 py-2 rounded">
+            <button onClick={handleSaveObat} className="bg-[#00A6A6] text-white px-4 py-2 rounded">
               Simpan
             </button>
             <button onClick={resetForm} className="bg-gray-300 px-4 py-2 rounded">

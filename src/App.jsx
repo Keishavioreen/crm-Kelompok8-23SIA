@@ -22,8 +22,8 @@ import Signup from './pages/Signup'
 import Campaign from './pages/Campaign'
 import Trigger from './pages/Trigger'
 import KelolaAppointment from './pages/KelolaAppointment'
-import Analytics from './pages/KelolaAnalytics'
-import KelolaAnalytics from './pages/Analytics'
+import Analytics from './pages/Analytics'
+import KelolaAnalytics from './pages/KelolaAnalytics'
 import UserLayout from './components/UserLayout'
 import DashboardUser from './pages/DashboardUser'
 
@@ -84,7 +84,7 @@ export default function App() {
            <Route path="/faq/:id"    element={<GuideForm />} />     
            <Route path="transaksi" element={<KelolaTransaksi />} />
            <Route path="/Appoinment" element={<KelolaAppointment />} />
-          <Route path="Analisis" element={<Analytics  />} />
+          <Route path="/Analisis" element={<Analytics  />} />
           <Route path="/kelola-analytics" element={<KelolaAnalytics />} />
 
         </Route>
