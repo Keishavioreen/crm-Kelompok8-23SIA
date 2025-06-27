@@ -1,3 +1,5 @@
+import { AnalyticsProvider } from './context/AnalyticsContext'; 
+
 import { Routes, Route } from 'react-router-dom'
 import MainLayout from './components/MainLayout'
 import Dashboard from './pages/Dashboard'
@@ -16,6 +18,12 @@ import OrderManagement from './pages/OrderManagement'
 import LoyaltyPage from './pages/LoyaltyPage'
 import LoyaltyEdit from './pages/LoyaltyEdit'
 import Signin from './pages/Signin'
+import Signup from './pages/Signup'
+import Campaign from './pages/Campaign'
+import Trigger from './pages/Trigger'
+import KelolaAppointment from './pages/KelolaAppointment'
+import Analytics from './pages/KelolaAnalytics'
+import KelolaAnalytics from './pages/Analytics'
 import UserLayout from './components/UserLayout'
 import DashboardUser from './pages/DashboardUser'
 
@@ -75,7 +83,7 @@ export default function App() {
            <Route path="/faq/add"    element={<GuideForm />} />   
            <Route path="/faq/:id"    element={<GuideForm />} />     
            <Route path="transaksi" element={<KelolaTransaksi />} />
-           <Route path="appointment" element={<KelolaAppointment />} />
+           <Route path="/Appoinment" element={<KelolaAppointment />} />
           <Route path="Analisis" element={<Analytics  />} />
           <Route path="/kelola-analytics" element={<KelolaAnalytics />} />
 
