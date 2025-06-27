@@ -18,11 +18,16 @@ import LoyaltyEdit from './pages/LoyaltyEdit'
 import Signin from './pages/Signin'
 import UserLayout from './components/UserLayout'
 import DashboardUser from './pages/DashboardUser'
+import Analytics from './pages/Analytics'
+import KelolaAppointment from './pages/KelolaAppointment'
+import KelolaAnalytics from './pages/KelolaAnalytics'
+import { AnalyticsProvider } from './context/AnalyticsContext';
 
 
 export default function App() {
   return (
     <GuideProvider>
+       <AnalyticsProvider>
       <Routes>
         {/* Wrapper layout yang memuat Sidebar, Header, dll */}
 
@@ -71,12 +76,17 @@ export default function App() {
            <Route path="/faq/add"    element={<GuideForm />} />   
            <Route path="/faq/:id"    element={<GuideForm />} />     
            <Route path="transaksi" element={<KelolaTransaksi />} />
+           <Route path="appointment" element={<KelolaAppointment />} />
+          <Route path="Analisis" element={<Analytics  />} />
+          <Route path="/kelola-analytics" element={<KelolaAnalytics />} />
+
         </Route>
 
          <Route element={<UserLayout />}>
           <Route path="/UserDashboard" element={<DashboardUser />} />
          </Route>
       </Routes>
+      </AnalyticsProvider>
     </GuideProvider>
   );
 }

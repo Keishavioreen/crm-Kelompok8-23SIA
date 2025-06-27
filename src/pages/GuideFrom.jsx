@@ -12,6 +12,7 @@ export default function GuideForm() {
     title: "",
     category: "",
     status: "Aktif",
+    tipe: "",         // ✅ ditambahkan field tipe
     template: "",
   });
 
@@ -59,6 +60,21 @@ export default function GuideForm() {
         <option value="Aktif">Aktif</option>
         <option value="Draft">Draft</option>
       </select>
+
+      {/* ✅ Tipe Panduan */}
+      <select
+        name="tipe"
+        value={form.tipe}
+        onChange={handleChange}
+        className="border px-3 py-2 w-full rounded"
+        required
+      >
+        <option value="">Pilih Tipe Panduan</option>
+        <option value="Video">Video</option>
+        <option value="Artikel">Artikel</option>
+        <option value="Langkah-langkah">Langkah-langkah</option>
+      </select>
+
       <textarea
         name="template"
         value={form.template}
@@ -67,6 +83,7 @@ export default function GuideForm() {
         className="border px-3 py-2 w-full rounded"
         rows={5}
       />
+
       <button className="bg-teal-600 text-white px-4 py-2 rounded">
         {editing ? "Simpan Perubahan" : "Tambah Panduan"}
       </button>
