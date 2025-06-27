@@ -28,7 +28,7 @@ const AkunUser = () => {
 
   return (
     <div className="p-8 max-w-7xl mx-auto text-gray-800 space-y-8">
-      <h1 className="text-3xl font-bold">Akun</h1>
+      <h1 className="text-4xl font-bold text-[#007676] mb-10 text-left">Akun</h1>
 
       {/* Identitas Akun */}
       <div className="bg-white rounded-xl shadow p-6 space-y-2">
