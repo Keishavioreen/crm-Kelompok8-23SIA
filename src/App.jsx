@@ -28,9 +28,6 @@ import AkunUser from './pages/AkunUser';
 import ProductUser from './pages/Productuser';
 import FaqPage from './pages/FaqPage';
 import CartPage from './pages/CartPage';
-import Campaign from './pages/Campaign'
-import Trigger from './pages/Trigger'
-import Signup from './pages/Signup'
 import Segmentasi from './pages/Segmentasi'
 import TentangKami from './pages/TentangKami'
 import Kontak from './pages/Kontak'
