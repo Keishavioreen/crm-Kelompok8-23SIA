@@ -8,8 +8,6 @@ import CustomerManagement from './pages/CustomerManagement'
 import StokObat from './pages/StokObat'
 import Laporan from './pages/Laporan'
 import Chatbot from './components/Chatbot'
-import Segmentasi from './pages/segmentasi'
-
 import FAQ from './pages/FAQ'
 import GuideForm from './pages/GuideFrom'
 import { GuideProvider } from "./context/GuideContext";
@@ -30,12 +28,18 @@ import AkunUser from './pages/AkunUser';
 import ProductUser from './pages/Productuser';
 import FaqPage from './pages/FaqPage';
 import CartPage from './pages/CartPage';
+import Campaign from './pages/Campaign'
+import Trigger from './pages/Trigger'
+import Signup from './pages/Signup'
+import Segmentasi from './pages/Segmentasi'
+import TentangKami from './pages/TentangKami'
+import Kontak from './pages/Kontak'
 
 
 export default function App() {
   return (
     <GuideProvider>
-       <AnalyticsProvider>
+      
       <Routes>
         {/* Wrapper layout yang memuat Sidebar, Header, dll */}
 
@@ -90,6 +94,9 @@ export default function App() {
            <Route path="/Appoinment" element={<KelolaAppointment />} />
           <Route path="/Analisis" element={<Analytics  />} />
           <Route path="/kelola-analytics" element={<KelolaAnalytics />} />
+           <Route path="appointment" element={<KelolaTransaksi />} />
+          <Route path="Analisis" element={<KelolaTransaksi  />} />
+          <Route path="/kelola-analytics" element={<KelolaTransaksi />} />
 
         </Route>
 
@@ -99,9 +106,11 @@ export default function App() {
           <Route path="/Produk" element={<ProductUser />} />
           <Route path="/FaqUser" element={<FaqPage />} />
           <Route path="/Keranjang" element={<CartPage />} />
+          <Route path="/TentangKami" element={<TentangKami />} />
+          <Route path="/Kontak" element={<Kontak />} />
          </Route>
       </Routes>
-      </AnalyticsProvider>
+  
     </GuideProvider>
   );
 }

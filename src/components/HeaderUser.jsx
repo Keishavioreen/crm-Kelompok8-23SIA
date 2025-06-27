@@ -78,9 +78,16 @@ const HeaderUser = () => {
             FAQ
           </a>
           <a href="#" className="hover:text-blue-300 transition">
-            Tentang Kami
+          <a href="#" className="hover:text-blue-300 transition">
+            Home
           </a>
           <a href="#" className="hover:text-blue-300 transition">
+            Produk
+          </a>
+          <a href="/TentangKami" className="hover:text-blue-300 transition">
+            Tentang Kami
+          </a>
+          <a href="/Kontak" className="hover:text-blue-300 transition">
             Kontak
           </a>
         </div>
