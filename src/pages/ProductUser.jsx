@@ -15,6 +15,7 @@ const ProductUser = () => {
   const [sortOption, setSortOption] = useState("featured");
   const [produkList, setProdukList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [notification, setNotification] = useState("");
 
   useEffect(() => {
     const fetchProduk = async () => {
@@ -44,9 +45,32 @@ const ProductUser = () => {
     fetchProduk();
   }, [sortOption]);
 
+  const handleAddToCart = (item) => {
+    const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
+    const index = existingCart.findIndex((i) => i.id === item.id);
+    let updatedCart;
+
+    if (index !== -1) {
+      existingCart[index].qty = (existingCart[index].qty || 1) + 1;
+      updatedCart = existingCart;
+    } else {
+      updatedCart = [...existingCart, { ...item, qty: 1 }];
+    }
+
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    setNotification(`${item.nama_obat} ditambahkan ke keranjang.`);
+    setTimeout(() => setNotification(""), 3000);
+  };
+
   return (
     <div className="p-6 max-w-7xl mx-auto text-gray-800">
       <h1 className="text-4xl font-bold mb-6" style={{ color: "#007676" }}>Produk</h1>
+
+      {notification && (
+        <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded mb-4">
+          {notification}
+        </div>
+      )}
 
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Sidebar */}
@@ -86,11 +110,6 @@ const ProductUser = () => {
               <option value="low">Harga Terendah</option>
               <option value="high">Harga Tertinggi</option>
             </select>
-
-            <div className="flex gap-2 text-gray-400">
-              <button className="hover:text-cyan-600">🔲</button>
-              <button className="hover:text-cyan-600">📋</button>
-            </div>
           </div>
 
           {/* Grid Produk */}
@@ -111,7 +130,10 @@ const ProductUser = () => {
                     <div className="text-cyan-700 font-bold text-sm mt-1">
                       Rp {Number(item.harga).toLocaleString()}
                     </div>
-                    <button className="mt-auto bg-cyan-600 hover:bg-cyan-700 text-white text-sm rounded-lg px-4 py-2 flex items-center justify-center gap-2">
+                    <button
+                      onClick={() => handleAddToCart(item)}
+                      className="mt-auto bg-cyan-600 hover:bg-cyan-700 text-white text-sm rounded-lg px-4 py-2 flex items-center justify-center gap-2"
+                    >
                       <ShoppingCart size={16} /> Beli
                     </button>
                   </div>

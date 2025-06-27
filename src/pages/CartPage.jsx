@@ -1,40 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function CartPage() {
   const [coupon, setCoupon] = useState('');
   const [showInvalid, setShowInvalid] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
+  const navigate = useNavigate();
 
-  const cartItems = [
-    {
-      name: 'Panadol Tablets',
-      price: 12000,
-      qty: 9,
-      img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvGHXgpzoIJ8OKEIMpV4MvkY5VbjdA6EiKFg&s',
-    },
-    {
-      name: 'Softin Tablets',
-      price: 15000,
-      qty: 3,
-      img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvGHXgpzoIJ8OKEIMpV4MvkY5VbjdA6EiKFg&s',
-    },
-    {
-      name: 'Betadine Obat Kumur 250 Ml',
-      price: 14000,
-      qty: 1,
-      img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvGHXgpzoIJ8OKEIMpV4MvkY5VbjdA6EiKFg&s',
-    },
-  ];
+  useEffect(() => {
+    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    setCartItems(storedCart);
+  }, []);
 
   const handleApplyCoupon = () => {
     if (coupon.trim().toLowerCase() !== 'diskon10') {
       setShowInvalid(true);
-      setTimeout(() => setShowInvalid(false), 2500); // hide after 2.5s
+      setTimeout(() => setShowInvalid(false), 2500);
     }
   };
 
+  const handleRemoveItem = (indexToRemove) => {
+    const confirmDelete = window.confirm("Yakin ingin menghapus produk ini?");
+    if (confirmDelete) {
+      const updatedCart = cartItems.filter((_, index) => index !== indexToRemove);
+      setCartItems(updatedCart);
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+    }
+  };
+
+  const handleClearCart = () => {
+    const confirmClear = window.confirm("Yakin ingin menghapus semua produk di keranjang?");
+    if (confirmClear) {
+      setCartItems([]);
+      localStorage.removeItem("cart");
+    }
+  };
+
+  const handleQtyChange = (index, qty) => {
+    const updatedCart = [...cartItems];
+    updatedCart[index].qty = qty;
+    updatedCart[index].hargaTotal = updatedCart[index].harga * qty;
+    setCartItems(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  };
+
+  const subtotal = cartItems.reduce((total, item) => total + (item.harga * item.qty), 0);
+  const diskon = coupon.trim().toLowerCase() === 'diskon10' ? subtotal * 0.1 : 0;
+  const pajak = 2000;
+  const total = subtotal - diskon + pajak;
+
   return (
     <div className="min-h-screen bg-gray-50 py-10 px-4 sm:px-8 relative overflow-hidden">
-      {/* ALERT Kupon Invalid dengan latar blur */}
       {showInvalid && (
         <div className="absolute inset-0 z-40 flex items-center justify-center">
           <div className="absolute inset-0 backdrop-blur-sm bg-transparent"></div>
@@ -49,7 +65,6 @@ export default function CartPage() {
         <h1 className="text-4xl font-bold text-[#007676] mb-10 text-left">Keranjang Belanja</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Daftar Barang */}
           <div className="lg:col-span-2 space-y-6">
             {cartItems.map((item, index) => (
               <div
@@ -57,17 +72,26 @@ export default function CartPage() {
                 className="bg-white shadow-md rounded-lg p-4 flex justify-between items-center"
               >
                 <div className="flex items-center gap-4">
-                  <img src={item.img} alt={item.name} className="w-16 h-16 object-cover rounded" />
+                  <img src={item.gambar} alt={item.nama_obat} className="w-16 h-16 object-cover rounded" />
                   <div>
-                    <p className="text-base font-semibold text-gray-800">{item.name}</p>
-                    <button className="text-xs text-red-500 hover:underline">Hapus</button>
+                    <p className="text-base font-semibold text-gray-800">{item.nama_obat}</p>
+                    <button
+                      className="text-xs text-red-500 hover:underline"
+                      onClick={() => handleRemoveItem(index)}
+                    >
+                      Hapus
+                    </button>
                   </div>
                 </div>
                 <div className="flex items-center gap-6">
                   <p className="text-sm text-gray-700 font-medium">
-                    Rp {item.price.toLocaleString()}
+                    Rp {(item.harga * item.qty).toLocaleString()}
                   </p>
-                  <select className="border rounded px-3 py-1 text-sm" defaultValue={item.qty}>
+                  <select
+                    className="border rounded px-3 py-1 text-sm"
+                    value={item.qty}
+                    onChange={(e) => handleQtyChange(index, Number(e.target.value))}
+                  >
                     {[...Array(10)].map((_, i) => (
                       <option key={i} value={i + 1}>
                         {i + 1} pcs
@@ -79,14 +103,21 @@ export default function CartPage() {
             ))}
 
             <div className="flex justify-between pt-4">
-              <button className="text-sm text-white bg-[#007676] px-5 py-2 rounded hover:bg-[#005d5d] transition">
+              <button
+                onClick={() => navigate('/produk')}
+                className="text-sm text-white bg-[#007676] px-5 py-2 rounded hover:bg-[#005d5d] transition"
+              >
                 Kembali Belanja
               </button>
-              <button className="text-sm text-red-600 hover:underline">Hapus Semua</button>
+              <button
+                onClick={handleClearCart}
+                className="text-sm text-red-600 hover:underline"
+              >
+                Hapus Semua
+              </button>
             </div>
           </div>
 
-          {/* Ringkasan Belanja */}
           <div className="bg-white shadow-md rounded-lg p-6 space-y-5">
             <div>
               <h2 className="text-lg font-semibold text-gray-700 mb-2">Punya Kupon?</h2>
@@ -110,19 +141,19 @@ export default function CartPage() {
             <div className="border-t pt-4 space-y-2 text-sm text-gray-700">
               <div className="flex justify-between">
                 <span>Subtotal</span>
-                <span>Rp 120.000</span>
+                <span>Rp {subtotal.toLocaleString()}</span>
               </div>
               <div className="flex justify-between text-red-500">
                 <span>Diskon</span>
-                <span>- Rp 12.000</span>
+                <span>- Rp {diskon.toLocaleString()}</span>
               </div>
               <div className="flex justify-between text-green-500">
                 <span>Pajak</span>
-                <span>+ Rp 2.000</span>
+                <span>+ Rp {pajak.toLocaleString()}</span>
               </div>
               <div className="flex justify-between border-t pt-2 font-semibold text-base">
                 <span>Total</span>
-                <span>Rp 110.000</span>
+                <span>Rp {total.toLocaleString()}</span>
               </div>
             </div>
 
@@ -132,7 +163,6 @@ export default function CartPage() {
           </div>
         </div>
 
-        {/* Footer Info */}
         <div className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center text-sm text-gray-500">
           <div>
             <p className="font-semibold">🔒 Pembayaran Aman</p>
