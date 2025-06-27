@@ -16,7 +16,7 @@ const Signin = () => {
     if (credentials.email === "keisha@gmail.com" && credentials.password === "password") {
       navigate("/");
     }else if (credentials.email === "halimah@gmail.com" && credentials.password === "user") {
-      navigate("/UserDashboard");
+      navigate("/Home");
     }else {
       setError("Invalid email or password");
     }

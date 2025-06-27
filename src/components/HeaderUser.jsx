@@ -1,30 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { supabase } from "../supabase";
 
 const HeaderUser = () => {
   const [isNotificationOpen, setNotificationOpen] = useState(false);
+  const [campaignNotifications, setCampaignNotifications] = useState([]); // State untuk data campaign
 
-  const notifications = [
-    {
-      id: 1,
-      message: "Selamat Bergabung! Nikmati diskon spesial pembelian pertama Anda.",
-      link: "/DetailTrigger/1",
-    },
-    {
-      id: 2,
-      message: "Selamat Ulang Tahun! Dapatkan voucher Rp 50.000.",
-      link: "/DetailTrigger/2",
-    },
-    {
-      id: 3,
-      message: "Lihat deh, ada produk baru nih! Ayo cek sekarang.",
-      link: "/DetailTrigger/3",
-    },
-    {
-      id: 4,
-      message: "Belanja minimal Rp 50.000 dan dapatkan voucher Rp 10.000.",
-      link: "/DetailTrigger/4",
-    },
-  ];
+  // Fungsi untuk mengambil data campaign dari Supabase
+  const fetchCampaignNotifications = async () => {
+    try {
+      const { data, error } = await supabase.from("campaign").select("id, judul");
+      if (error) throw error;
+      setCampaignNotifications(data || []); // Simpan data ke state
+    } catch (error) {
+      console.error("Error fetching campaigns:", error.message);
+    }
+  };
+
+  // Panggil fungsi fetchCampaignNotifications saat komponen dimuat
+  useEffect(() => {
+    fetchCampaignNotifications();
+  }, []);
 
   const toggleNotification = () => {
     setNotificationOpen(!isNotificationOpen);
@@ -92,9 +87,9 @@ const HeaderUser = () => {
                   />
                 </svg>
                 <span className="ml-2">Notifikasi</span>
-                {notifications.length > 0 && (
+                {campaignNotifications.length > 0 && (
                   <span className="absolute -top-2 -right-2 block h-5 w-5 rounded-full bg-red-600 text-white text-xs flex items-center justify-center">
-                    {notifications.length}
+                    {campaignNotifications.length}
                   </span>
                 )}
               </button>
@@ -102,13 +97,13 @@ const HeaderUser = () => {
               {isNotificationOpen && (
                 <div className="absolute right-0 mt-2 w-80 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
                   <ul className="divide-y divide-gray-200">
-                    {notifications.map((notif) => (
+                    {campaignNotifications.map((notif) => (
                       <li key={notif.id} className="hover:bg-gray-100">
                         <a
-                          href={notif.link}
+                          href={`/DetailTrigger/${notif.id}`}
                           className="block px-4 py-3 text-gray-800 hover:text-blue-600 transition"
                         >
-                          {notif.message}
+                          {notif.judul || "Tidak ada judul"}
                         </a>
                       </li>
                     ))}
@@ -152,11 +147,6 @@ const HeaderUser = () => {
         <div className="max-w-7xl mx-auto flex justify-center space-x-8 text-white">
           <a href="/Home" className="hover:text-blue-300 transition">
             Home
-          </a>
-          <a href="/TentangKami" className="hover:text-blue-300 transition">
-            Tentang Kami
-          </a>
-          <a href="/Produk" className="hover:text-blue-300 transition">
           </a>
           <a href="Produk" className="hover:text-blue-300 transition">
             Produk

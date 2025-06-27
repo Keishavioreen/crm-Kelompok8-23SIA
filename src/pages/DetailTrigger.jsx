@@ -1,42 +1,46 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-
-const notifications = [
-  { 
-    id: "1", 
-    title: "Selamat Bergabung!", 
-    message: "Halo! Selamat bergabung di platform kami. Sebagai hadiah selamat datang, nikmati diskon spesial untuk pembelian pertama Anda. Yuk, mulai belanja sekarang!" 
-  },
-  { 
-    id: "2", 
-    title: "Selamat Ulang Tahun!", 
-    message: "Happy Birthday! Di hari istimewa ini, kami memberikan voucher spesial senilai Rp 50.000 untuk Anda. Gunakan kode: ULTAH50 saat checkout. Berlaku hingga hari ini!" 
-  },
-  { 
-    id: "3", 
-    title: "Produk Baru!", 
-    message: "Kabar baik! Produk-produk terbaru kami sudah tersedia. Ayo cek koleksi kami dan temukan apa yang Anda butuhkan dengan promo menarik!" 
-  },
-  { 
-    id: "4", 
-    title: "Voucher Eksklusif!", 
-    message: "Spesial untuk Anda! Belanja minimal Rp 50.000 dan dapatkan voucher Rp 10.000 yang bisa digunakan untuk semua produk. Gunakan kode: VOUCHER10 sebelum checkout. Jangan sampai ketinggalan, ya!" 
-  },
-  { 
-    id: "5", 
-    title: "Promo Akhir Bulan!", 
-    message: "Hore! Nikmati diskon hingga 30% untuk kategori favorit Anda. Buruan sebelum kehabisan, karena promo hanya berlaku hingga akhir bulan ini!" 
-  },
-  { 
-    id: "6", 
-    title: "Flash Sale!", 
-    message: "Waktunya belanja hemat! Flash sale hari ini hanya berlangsung selama 24 jam. Jangan lewatkan penawaran terbatas kami dengan harga terbaik." 
-  }
-];
+import { supabase } from "../supabase"; // Pastikan file konfigurasi Supabase benar
 
 const DetailTrigger = () => {
   const { id } = useParams(); // Mendapatkan ID dari URL
-  const notification = notifications.find((notif) => notif.id === id);
+  const [notification, setNotification] = useState(null); // State untuk menyimpan data
+  const [loading, setLoading] = useState(true); // State untuk loading
+
+  // Fungsi untuk mengambil data dari tabel campaign
+  const fetchNotification = async () => {
+    try {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from("campaign")
+        .select("judul, template_chat")
+        .eq("id", id)
+        .single(); // Mengambil data berdasarkan ID
+
+      if (error) throw error;
+      setNotification(data);
+    } catch (error) {
+      console.error("Error fetching notification:", error.message);
+      setNotification(null); // Set null jika terjadi error
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Ambil data saat komponen dimuat
+  useEffect(() => {
+    fetchNotification();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-600">Memuat...</h1>
+        </div>
+      </div>
+    );
+  }
 
   if (!notification) {
     return (
@@ -57,8 +61,8 @@ const DetailTrigger = () => {
       <div className="bg-white shadow-lg rounded-lg max-w-md w-full p-6">
         {/* Header */}
         <div className="text-center mb-6">
-          <h1 className="text-3xl font-bold text-teal-600">{notification.title}</h1>
-          <p className="text-gray-600 mt-2">{notification.message}</p>
+          <h1 className="text-3xl font-bold text-teal-600">{notification.judul}</h1>
+          <p className="text-gray-600 mt-2">{notification.template_chat}</p>
         </div>
 
         {/* Call to Action */}
@@ -76,8 +80,6 @@ const DetailTrigger = () => {
             Lihat Produk Kami
           </a>
         </div>
-
-       
       </div>
     </div>
   );

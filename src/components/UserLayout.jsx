@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import HeaderUser from "./HeaderUser";
 import FooterUser from "./FooterUser";
+import Chatbot from "./Chatbot";
 
 
 export default function UserLayout() {
@@ -14,6 +15,7 @@ export default function UserLayout() {
         <main className="flex-1 overflow-y-auto p-6">
           <Outlet />
         </main>
+         <Chatbot />
       </div>
       
       {/* Footer */}

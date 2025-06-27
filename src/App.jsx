@@ -33,6 +33,7 @@ import DetailTrigger from './pages/DetailTrigger';
 import HomeUser from './pages/HomeUser';
 import Segmentasi from './pages/Segmentasi'
 import TentangKami from './pages/TentangKami'
+import TambahCampaign from './pages/TambahCampaign';
 
 
 
@@ -69,6 +70,7 @@ export default function App() {
           <Route path="/LoyaltyEdit" element={<LoyaltyEdit />} />
           <Route path="/Campaign" element={<Campaign />} />
           <Route path="/Trigger" element={<Trigger />} />
+          <Route path="/TambahCampaign" element={<TambahCampaign />} />
           
 
           {/* FAQ & panduan */}

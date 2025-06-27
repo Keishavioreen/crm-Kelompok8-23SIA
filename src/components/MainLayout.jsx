@@ -16,7 +16,7 @@ export default function MainLayout() {
           <Outlet />
         </div>
         </main>
-        <Chatbot />
+        {/* <Chatbot /> */}
       </div>
   </div>
 

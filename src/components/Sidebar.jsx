@@ -8,7 +8,9 @@ import {
   LogIn,
   UserPlus,
   BarChart3,     // FAQ & laporan lain
-  ClipboardList, // order management
+  ClipboardList,
+  Award,
+  Megaphone, // order management
 } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import "./color.css";
@@ -24,7 +26,8 @@ const menuItems = [
   { name: 'Kelola Transaksi',  icon: <BarChart3 />,      path: '/transaksi' },
   { name: 'KelolaAppointment', icon: <BarChart3 />, path: '/Appoinment' },
   { name: 'Analisis', icon: <BarChart3 />, path: '/Analisis' },
-  { name: 'Loyalty', icon: <BarChart3 />, path: '/Loyalty' },
+  { name: 'Loyalty', icon: <Award />, path: '/Loyalty' },
+   { name: 'Campaign', icon: <Megaphone  />, path: '/Campaign' },
 ];
 
 const accountItems = [
