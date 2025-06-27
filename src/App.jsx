@@ -31,6 +31,8 @@ import AkunUser from './pages/AkunUser';
 import ProductUser from './pages/Productuser';
 import FaqPage from './pages/FaqPage';
 import CartPage from './pages/CartPage';
+import DetailTrigger from './pages/DetailTrigger';
+import HomeUser from './pages/HomeUser';
 
 
 export default function App() {
@@ -94,6 +96,7 @@ export default function App() {
            <Route path="/Appoinment" element={<KelolaAppointment />} />
           <Route path="/Analisis" element={<Analytics  />} />
           <Route path="/kelola-analytics" element={<KelolaAnalytics />} />
+         
 
         </Route>
 
@@ -105,6 +108,8 @@ export default function App() {
           <Route path="/Produk" element={<ProductUser />} />
           <Route path="/FaqUser" element={<FaqPage />} />
           <Route path="/Keranjang" element={<CartPage />} />
+          <Route path="/DetailTrigger/:id" element={<DetailTrigger />} />
+          <Route path="/Home" element={<HomeUser />} />
          </Route>
       </Routes>
   

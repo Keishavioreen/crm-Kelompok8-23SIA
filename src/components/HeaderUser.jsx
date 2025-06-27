@@ -1,6 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 
 const HeaderUser = () => {
+  const [isNotificationOpen, setNotificationOpen] = useState(false);
+
+  const notifications = [
+    {
+      id: 1,
+      message: "Selamat Bergabung! Nikmati diskon spesial pembelian pertama Anda.",
+      link: "/DetailTrigger/1",
+    },
+    {
+      id: 2,
+      message: "Selamat Ulang Tahun! Dapatkan voucher Rp 50.000.",
+      link: "/DetailTrigger/2",
+    },
+    {
+      id: 3,
+      message: "Lihat deh, ada produk baru nih! Ayo cek sekarang.",
+      link: "/DetailTrigger/3",
+    },
+    {
+      id: 4,
+      message: "Belanja minimal Rp 50.000 dan dapatkan voucher Rp 10.000.",
+      link: "/DetailTrigger/4",
+    },
+  ];
+
+  const toggleNotification = () => {
+    setNotificationOpen(!isNotificationOpen);
+  };
+
   return (
     <header className="bg-white shadow-sm">
       {/* Layer 1: Logo, Search Bar, Akun, Keranjang */}
@@ -40,10 +69,59 @@ const HeaderUser = () => {
             </div>
           </div>
 
-          {/* Akun dan Keranjang */}
-          <div className="flex items-center space-x-4">
+          {/* Akun, Keranjang, dan Notifikasi */}
+          <div className="flex items-center space-x-6">
+            {/* Notifikasi */}
+            <div className="relative">
+              <button
+                onClick={toggleNotification}
+                className="relative text-gray-900 hover:text-blue-600 transition flex items-center"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-7 w-7" // Ukuran ikon diperbesar
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14h-3v3zm0 0a2.5 2.5 0 11-5 0v-3H6a2.032 2.032 0 01-1.595-.405L3 17h5z"
+                  />
+                </svg>
+                <span className="ml-2">Notifikasi</span>
+                {notifications.length > 0 && (
+                  <span className="absolute -top-2 -right-2 block h-5 w-5 rounded-full bg-red-600 text-white text-xs flex items-center justify-center">
+                    {notifications.length}
+                  </span>
+                )}
+              </button>
+
+              {isNotificationOpen && (
+                <div className="absolute right-0 mt-2 w-80 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                  <ul className="divide-y divide-gray-200">
+                    {notifications.map((notif) => (
+                      <li key={notif.id} className="hover:bg-gray-100">
+                        <a
+                          href={notif.link}
+                          className="block px-4 py-3 text-gray-800 hover:text-blue-600 transition"
+                        >
+                          {notif.message}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+
             {/* Keranjang */}
-            <a href="/Keranjang" className="text-gray-900 hover:text-blue-600 transition flex items-center">
+            <a
+              href="/Keranjang"
+              className="text-gray-900 hover:text-blue-600 transition flex items-center"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -60,7 +138,8 @@ const HeaderUser = () => {
               </svg>
               <span className="ml-2">Keranjang</span>
             </a>
-             {/* Akun */}
+
+            {/* Akun */}
             <a href="/Akun" className="text-gray-900 hover:text-blue-600 transition">
               Akun
             </a>
@@ -71,22 +150,17 @@ const HeaderUser = () => {
       {/* Layer 2: Produk, Tentang Kami, Kontak */}
       <div className="bg-teal-600 py-3">
         <div className="max-w-7xl mx-auto flex justify-center space-x-8 text-white">
-          <a href="#" className="hover:text-blue-300 transition">
+          <a href="/Home" className="hover:text-blue-300 transition">
             Home
           </a>
-          <a href="#" className="hover:text-blue-300 transition">
-            Produk
-          </a>
           <a href="/TentangKami" className="hover:text-blue-300 transition">
+            Tentang Kami
           </a>
           <a href="/Produk" className="hover:text-blue-300 transition">
             Produk
           </a>
           <a href="/FaqUser" className="hover:text-blue-300 transition">
             FAQ
-          </a>
-          <a href="#" className="hover:text-blue-300 transition">
-            Tentang Kami
           </a>
           <a href="/Kontak" className="hover:text-blue-300 transition">
             Kontak
