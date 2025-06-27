@@ -28,6 +28,7 @@ import UserLayout from './components/UserLayout'
 import DashboardUser from './pages/DashboardUser'
 import AkunUser from './pages/AkunUser';
 import ProductUser from './pages/Productuser';
+import FaqPage from './pages/FaqPage';
 
 
 export default function App() {
@@ -95,6 +96,7 @@ export default function App() {
           <Route path="/UserDashboard" element={<DashboardUser />} />
           <Route path="/Akun" element={<AkunUser />} />
           <Route path="/Produk" element={<ProductUser />} />
+          <Route path="/FaqUser" element={<FaqPage />} />
          </Route>
       </Routes>
       </AnalyticsProvider>

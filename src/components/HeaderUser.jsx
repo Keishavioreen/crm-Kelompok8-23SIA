@@ -74,6 +74,9 @@ const HeaderUser = () => {
           <a href="/Produk" className="hover:text-blue-300 transition">
             Produk
           </a>
+          <a href="/FaqUser" className="hover:text-blue-300 transition">
+            FAQ
+          </a>
           <a href="#" className="hover:text-blue-300 transition">
             Tentang Kami
           </a>
