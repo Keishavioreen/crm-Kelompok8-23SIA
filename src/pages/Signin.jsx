@@ -24,7 +24,7 @@ const Signin = () => {
     <div className="min-h-screen bg-gray-50 flex items-center justify-center">
       <div className="flex flex-col-reverse md:flex-row bg-white rounded-lg shadow-lg overflow-hidden w-full max-w-4xl">
         <div className="md:w-1/2 p-6 flex flex-col justify-center">
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">Welcome Back :)</h2>
+           <h2 className="text-4xl font-extrabold text-tosca  mb-4">Welcome Back!</h2>
          
           {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
           <form onSubmit={handleSubmit}>
@@ -65,13 +65,13 @@ const Signin = () => {
                   Remember Me
                 </label>
               </div>
-              <a href="#" className="text-sm text-blue-500 hover:underline">
+              <a href="#" className="text-sm text-tosca  hover:underline">
                 Forgot Password?
               </a>
             </div>
             <button
               type="submit"
-              className="w-full px-4 py-2 bg-blue-500 text-white font-medium rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              className="w-full px-4 py-2 bg-tosca text-white font-medium rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
                
               Login Now
             </button>
@@ -79,14 +79,14 @@ const Signin = () => {
         
             <p>
               Don't have an account?{" "}
-              <a href="/signup" className="text-blue-500 hover:underline">
+              <a href="/signup" className="text-tosca  hover:underline">
                 Sign Up
               </a>
             </p>
           </div>
 
        
-        <div className="md:w-1/2 bg-blue-100 flex items-center justify-center p-6">
+        <div className="md:w-1/2 bg-tosca flex items-center justify-center p-6">
           <img
             src="/path-to-illustration.png"
             alt="Illustration"

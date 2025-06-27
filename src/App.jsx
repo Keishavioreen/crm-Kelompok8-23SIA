@@ -18,10 +18,6 @@ import LoyaltyEdit from './pages/LoyaltyEdit'
 import Signin from './pages/Signin'
 import UserLayout from './components/UserLayout'
 import DashboardUser from './pages/DashboardUser'
-import Analytics from './pages/Analytics'
-import KelolaAppointment from './pages/KelolaAppointment'
-import KelolaAnalytics from './pages/KelolaAnalytics'
-import { AnalyticsProvider } from './context/AnalyticsContext';
 
 
 export default function App() {
@@ -33,7 +29,7 @@ export default function App() {
 
          {/* Pengaturan akun */}
            <Route path="/signin" element={<Signin />} />
-            <Route path="/signup" element={<Signin />} />
+            <Route path="/signup" element={<Signup />} />
 
         <Route element={<MainLayout />}>
           {/* Dashboard */}
@@ -55,6 +51,9 @@ export default function App() {
           <Route path="/chatbot" element={<Chatbot />} />
           <Route path="/Loyalty" element={<LoyaltyPage />} />
           <Route path="/LoyaltyEdit" element={<LoyaltyEdit />} />
+          <Route path="/Campaign" element={<Campaign />} />
+          <Route path="/Trigger" element={<Trigger />} />
+          
 
           {/* FAQ & panduan */}
           <Route path="/faq" element={<FAQ />} />
