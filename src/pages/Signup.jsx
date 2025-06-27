@@ -133,12 +133,10 @@ const Signup = () => {
         </div>
         <div className="md:w-1/2  bg-tosca text-white flex items-center justify-center p-8">
           <div>
-            <h2 className="text-3xl font-bold mb-4">Welcome!</h2>
-            <p className="text-base mb-4">We're excited to have you join us.</p>
             <img
-              src="/path-to-illustration.png"
+              src="/obat.jpg"
               alt="Illustration"
-              className="w-full max-w-xs mx-auto"
+              className="w-full max-w-s mx-auto"
             />
           </div>
         </div>

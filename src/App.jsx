@@ -6,8 +6,6 @@ import CustomerManagement from './pages/CustomerManagement'
 import StokObat from './pages/StokObat'
 import Laporan from './pages/Laporan'
 import Chatbot from './components/Chatbot'
-import Segmentasi from './pages/segmentasi'
-
 import FAQ from './pages/FAQ'
 import GuideForm from './pages/GuideFrom'
 import { GuideProvider } from "./context/GuideContext";
@@ -21,6 +19,9 @@ import DashboardUser from './pages/DashboardUser'
 import Campaign from './pages/Campaign'
 import Trigger from './pages/Trigger'
 import Signup from './pages/Signup'
+import Segmentasi from './pages/Segmentasi'
+import TentangKami from './pages/TentangKami'
+import Kontak from './pages/Kontak'
 
 
 export default function App() {
@@ -81,6 +82,8 @@ export default function App() {
 
          <Route element={<UserLayout />}>
           <Route path="/UserDashboard" element={<DashboardUser />} />
+          <Route path="/TentangKami" element={<TentangKami />} />
+          <Route path="/Kontak" element={<Kontak />} />
          </Route>
       </Routes>
     </GuideProvider>

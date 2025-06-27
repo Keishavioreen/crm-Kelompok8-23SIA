@@ -15,7 +15,9 @@ const Signin = () => {
     e.preventDefault();
     if (credentials.email === "keisha@gmail.com" && credentials.password === "password") {
       navigate("/");
-    } else {
+    }else if (credentials.email === "halimah@gmail.com" && credentials.password === "user") {
+      navigate("/UserDashboard");
+    }else {
       setError("Invalid email or password");
     }
   };
@@ -24,6 +26,13 @@ const Signin = () => {
     <div className="min-h-screen bg-gray-50 flex items-center justify-center">
       <div className="flex flex-col-reverse md:flex-row bg-white rounded-lg shadow-lg overflow-hidden w-full max-w-4xl">
         <div className="md:w-1/2 p-6 flex flex-col justify-center">
+        <div className="flex items-center gap-6 mb-6">
+            <img
+              className="block w-35 h-auto"
+              src="/logo2.png" // let Vite handle public folder asset
+              alt="logo"
+            />
+            </div>
            <h2 className="text-4xl font-extrabold text-tosca  mb-4">Welcome Back!</h2>
          
           {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
@@ -88,9 +97,9 @@ const Signin = () => {
        
         <div className="md:w-1/2 bg-tosca flex items-center justify-center p-6">
           <img
-            src="/path-to-illustration.png"
+            src="/obat.jpg"
             alt="Illustration"
-            className="max-h-80"
+            className="max-h-120 w-full object-cover rounded-lg md:rounded-none w-20"
           />
         </div>
       </div>

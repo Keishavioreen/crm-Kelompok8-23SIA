@@ -72,12 +72,15 @@ const HeaderUser = () => {
       <div className="bg-teal-600 py-3">
         <div className="max-w-7xl mx-auto flex justify-center space-x-8 text-white">
           <a href="#" className="hover:text-blue-300 transition">
+            Home
+          </a>
+          <a href="#" className="hover:text-blue-300 transition">
             Produk
           </a>
-          <a href="#" className="hover:text-blue-300 transition">
+          <a href="/TentangKami" className="hover:text-blue-300 transition">
             Tentang Kami
           </a>
-          <a href="#" className="hover:text-blue-300 transition">
+          <a href="/Kontak" className="hover:text-blue-300 transition">
             Kontak
           </a>
         </div>
