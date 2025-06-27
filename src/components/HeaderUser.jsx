@@ -61,7 +61,7 @@ const HeaderUser = () => {
               <span className="ml-2">Keranjang</span>
             </a>
              {/* Akun */}
-            <a href="#" className="text-gray-900 hover:text-blue-600 transition">
+            <a href="/Akun" className="text-gray-900 hover:text-blue-600 transition">
               Akun
             </a>
           </div>
@@ -71,7 +71,7 @@ const HeaderUser = () => {
       {/* Layer 2: Produk, Tentang Kami, Kontak */}
       <div className="bg-teal-600 py-3">
         <div className="max-w-7xl mx-auto flex justify-center space-x-8 text-white">
-          <a href="#" className="hover:text-blue-300 transition">
+          <a href="/Produk" className="hover:text-blue-300 transition">
             Produk
           </a>
           <a href="#" className="hover:text-blue-300 transition">

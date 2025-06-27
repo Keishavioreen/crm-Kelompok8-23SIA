@@ -27,6 +27,7 @@ import KelolaAnalytics from './pages/KelolaAnalytics'
 import UserLayout from './components/UserLayout'
 import DashboardUser from './pages/DashboardUser'
 import AkunUser from './pages/AkunUser';
+import ProductUser from './pages/Productuser';
 
 
 export default function App() {
@@ -93,6 +94,7 @@ export default function App() {
          <Route element={<UserLayout />}>
           <Route path="/UserDashboard" element={<DashboardUser />} />
           <Route path="/Akun" element={<AkunUser />} />
+          <Route path="/Produk" element={<ProductUser />} />
          </Route>
       </Routes>
       </AnalyticsProvider>
