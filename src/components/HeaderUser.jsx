@@ -43,7 +43,7 @@ const HeaderUser = () => {
           {/* Akun dan Keranjang */}
           <div className="flex items-center space-x-4">
             {/* Keranjang */}
-            <a href="#" className="text-gray-900 hover:text-blue-600 transition flex items-center">
+            <a href="/Keranjang" className="text-gray-900 hover:text-blue-600 transition flex items-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -61,7 +61,7 @@ const HeaderUser = () => {
               <span className="ml-2">Keranjang</span>
             </a>
              {/* Akun */}
-            <a href="#" className="text-gray-900 hover:text-blue-600 transition">
+            <a href="/Akun" className="text-gray-900 hover:text-blue-600 transition">
               Akun
             </a>
           </div>
@@ -78,6 +78,14 @@ const HeaderUser = () => {
             Produk
           </a>
           <a href="/TentangKami" className="hover:text-blue-300 transition">
+          </a>
+          <a href="/Produk" className="hover:text-blue-300 transition">
+            Produk
+          </a>
+          <a href="/FaqUser" className="hover:text-blue-300 transition">
+            FAQ
+          </a>
+          <a href="#" className="hover:text-blue-300 transition">
             Tentang Kami
           </a>
           <a href="/Kontak" className="hover:text-blue-300 transition">

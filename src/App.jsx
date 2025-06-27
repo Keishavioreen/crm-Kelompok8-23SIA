@@ -1,3 +1,5 @@
+import { AnalyticsProvider } from './context/AnalyticsContext'; 
+
 import { Routes, Route } from 'react-router-dom'
 import MainLayout from './components/MainLayout'
 import Dashboard from './pages/Dashboard'
@@ -14,14 +16,21 @@ import OrderManagement from './pages/OrderManagement'
 import LoyaltyPage from './pages/LoyaltyPage'
 import LoyaltyEdit from './pages/LoyaltyEdit'
 import Signin from './pages/Signin'
-import UserLayout from './components/UserLayout'
-import DashboardUser from './pages/DashboardUser'
+import Signup from './pages/Signup'
 import Campaign from './pages/Campaign'
 import Trigger from './pages/Trigger'
-import Signup from './pages/Signup'
+import KelolaAppointment from './pages/KelolaAppointment'
+import Analytics from './pages/Analytics'
+import KelolaAnalytics from './pages/KelolaAnalytics'
+import UserLayout from './components/UserLayout'
+import DashboardUser from './pages/DashboardUser'
 import Segmentasi from './pages/Segmentasi'
 import TentangKami from './pages/TentangKami'
 import Kontak from './pages/Kontak'
+import AkunUser from './pages/AkunUser';
+import ProductUser from './pages/Productuser';
+import FaqPage from './pages/FaqPage';
+import CartPage from './pages/CartPage';
 
 
 export default function App() {
@@ -82,6 +91,9 @@ export default function App() {
            <Route path="appointment" element={<KelolaTransaksi />} />
           <Route path="Analisis" element={<KelolaTransaksi  />} />
           <Route path="/kelola-analytics" element={<KelolaTransaksi />} />
+           <Route path="/Appoinment" element={<KelolaAppointment />} />
+          <Route path="/Analisis" element={<Analytics  />} />
+          <Route path="/kelola-analytics" element={<KelolaAnalytics />} />
 
         </Route>
 
@@ -89,6 +101,10 @@ export default function App() {
           <Route path="/UserDashboard" element={<DashboardUser />} />
           <Route path="/TentangKami" element={<TentangKami />} />
           <Route path="/Kontak" element={<Kontak />} />
+          <Route path="/Akun" element={<AkunUser />} />
+          <Route path="/Produk" element={<ProductUser />} />
+          <Route path="/FaqUser" element={<FaqPage />} />
+          <Route path="/Keranjang" element={<CartPage />} />
          </Route>
       </Routes>
   

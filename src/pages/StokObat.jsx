@@ -37,6 +37,37 @@ const StokObat = () => {
     setNewObat((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleEdit = (id) => {
+    const obatToEdit = obatList.find((obat) => obat.id === id);
+    if (obatToEdit) {
+      setNewObat({
+        nama_obat: obatToEdit.nama_obat,
+        kategori: obatToEdit.kategori,
+        harga: obatToEdit.harga,
+        stok: obatToEdit.stok,
+        kadaluarsa: obatToEdit.kadaluarsa,
+        deskripsi: obatToEdit.deskripsi || "",
+        gambar: obatToEdit.gambar || "",
+      });
+      setEditId(id);
+      setIsEditing(true);
+      setFormVisible(true);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm("Yakin ingin menghapus data ini?");
+    if (!confirmDelete) return;
+
+    const { error } = await supabase.from("produk").delete().eq("id", id);
+    if (error) {
+      console.error("Gagal menghapus data:", error.message);
+    } else {
+      alert("Data berhasil dihapus.");
+      fetchObatData();
+    }
+  };
+
   const handleSaveObat = async () => {
     const { nama_obat, kategori, harga, stok, kadaluarsa, deskripsi, gambar } = newObat;
 
@@ -100,14 +131,14 @@ const StokObat = () => {
     <div className="p-6 max-w-7xl mx-auto">
       <h1 className="text-2xl font-bold mb-6">Stok Obat</h1>
 
-      {/* Kartu di atas */}
+      {/* Kartu Statistik */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
         <Card title="Total Produk" value={obatList.length} />
         <Card title="Stok Rendah" value={obatList.filter((obat) => obat.stok < 10).length} />
         <Card title="Produk Kadaluarsa" value={obatList.filter((obat) => new Date(obat.kadaluarsa) < new Date()).length} />
       </div>
 
-      {/* Filter dan Cari */}
+      {/* Filter dan Pencarian */}
       <div className="flex justify-between items-center mb-6">
         <div className="flex gap-4">
           <input
@@ -125,7 +156,7 @@ const StokObat = () => {
           </button>
         </div>
         <button
-          className="bg-teal-500 text-white px-4 py-2 rounded flex items-center gap-2"
+          className="bg-[#00A6A6] text-white px-4 py-2 rounded flex items-center gap-2"
           onClick={() => {
             resetForm();
             setFormVisible(true);
@@ -136,7 +167,7 @@ const StokObat = () => {
         </button>
       </div>
 
-      {/* Tabel */}
+      {/* Tabel Data */}
       <div className="overflow-auto bg-white rounded-lg shadow-md">
         <table className="min-w-full table-auto text-sm text-left text-gray-800">
           <thead className="bg-gray-100">
@@ -154,7 +185,7 @@ const StokObat = () => {
             {filteredObat.length > 0 ? (
               filteredObat.map((obat) => (
                 <tr key={obat.id}>
-                   <td className="px-4 py-2 border">
+                  <td className="px-4 py-2 border">
                     {obat.gambar ? (
                       <img
                         src={obat.gambar}
@@ -188,7 +219,7 @@ const StokObat = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="6" className="text-center py-4 text-gray-500">
+                <td colSpan="7" className="text-center py-4 text-gray-500">
                   Tidak ada data
                 </td>
               </tr>
@@ -197,7 +228,7 @@ const StokObat = () => {
         </table>
       </div>
 
-      {/* Form */}
+      {/* Form Input */}
       {formVisible && (
         <div className="bg-white p-6 rounded shadow mt-6">
           <h2 className="text-xl font-bold mb-4">{isEditing ? "Edit Obat" : "Tambah Obat"}</h2>
@@ -207,9 +238,10 @@ const StokObat = () => {
             <InputField label="Harga" name="harga" value={newObat.harga} onChange={handleInputChange} />
             <InputField label="Stok" name="stok" value={newObat.stok} onChange={handleInputChange} />
             <InputField label="Kadaluarsa" name="kadaluarsa" type="date" value={newObat.kadaluarsa} onChange={handleInputChange} />
+            <InputField label="URL Gambar" name="gambar" value={newObat.gambar} onChange={handleInputChange} />
           </form>
           <div className="flex gap-4 mt-4">
-            <button onClick={handleSaveObat} className="bg-green-500 text-white px-4 py-2 rounded">
+            <button onClick={handleSaveObat} className="bg-[#00A6A6] text-white px-4 py-2 rounded">
               Simpan
             </button>
             <button onClick={resetForm} className="bg-gray-300 px-4 py-2 rounded">
