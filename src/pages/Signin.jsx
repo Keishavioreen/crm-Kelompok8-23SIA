@@ -23,14 +23,14 @@ const Signin = () => {
     });
 
     if (authError) {
-      setError("Email atau password salah.");
+      setError("Email atau password salah dan Mungkin Tidak Terdaftar");
       return;
     }
 
-    // 2. Validasi apakah user juga terdaftar di tabel akun
+    // 2. Validasi apakah user terdaftar di tabel akun
     const { data: akunData, error: akunError } = await supabase
       .from("akun")
-      .select("*")
+      .select("role")
       .eq("email", email)
       .single();
 
@@ -40,8 +40,12 @@ const Signin = () => {
       return;
     }
 
-    // 3. Berhasil login dan ada di tabel akun
-    navigate("/Home");
+    // 3. Redirect berdasarkan role
+    if (akunData.role === "admin") {
+      navigate("/dashboard");
+    } else {
+      navigate("/Home");
+    }
   };
 
   return (
