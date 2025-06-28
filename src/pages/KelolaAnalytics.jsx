@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useAnalytics } from "../context/AnalyticsContext";
 
 export default function KelolaAnalytics() {
-  const { analyticsData, addRecord, deleteRecord } = useAnalytics();
+  const { analyticsData, addRecord, deleteRecord, updateRecord } = useAnalytics();
 
   const [formData, setFormData] = useState({
     rating: "",
@@ -11,6 +11,8 @@ export default function KelolaAnalytics() {
     month: ""
   });
 
+  const [editingId, setEditingId] = useState(null);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -18,13 +20,49 @@ export default function KelolaAnalytics() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addRecord(formData);
+
+    if (!formData.month || !formData.rating || !formData.responseTime || !formData.complaintsResolved) {
+      alert("Harap isi semua field!");
+      return;
+    }
+
+    const newRecord = {
+      ...formData,
+      rating: Number(formData.rating),
+      complaintsResolved: Number(formData.complaintsResolved),
+      id: editingId ?? Date.now()
+    };
+
+    if (editingId) {
+      updateRecord(newRecord);
+    } else {
+      addRecord(newRecord);
+    }
+
+    // Reset form
     setFormData({
       rating: "",
       responseTime: "",
       complaintsResolved: "",
       month: ""
     });
+    setEditingId(null);
+  };
+
+  const handleEdit = (record) => {
+    setFormData({
+      rating: record.rating,
+      responseTime: record.responseTime,
+      complaintsResolved: record.complaintsResolved,
+      month: record.month
+    });
+    setEditingId(record.id);
+  };
+
+  const handleDelete = (id) => {
+    if (window.confirm("Yakin ingin menghapus data ini?")) {
+      deleteRecord(id);
+    }
   };
 
   return (
@@ -66,26 +104,34 @@ export default function KelolaAnalytics() {
         />
 
         <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
-          Tambah Data
+          {editingId ? "Simpan Perubahan" : "Tambah Data"}
         </button>
       </form>
 
       <h2 className="text-xl font-semibold mt-6">Data Saat Ini</h2>
       <ul className="mt-2 space-y-2">
         {analyticsData.map((item) => (
-          <li key={item.id} className="bg-gray-100 p-3 rounded flex justify-between">
-            <div>
+          <li key={item.id} className="bg-gray-100 p-3 rounded flex justify-between items-start gap-4">
+            <div className="text-sm">
               <p><strong>Bulan:</strong> {item.month}</p>
               <p><strong>Rating:</strong> {item.rating}</p>
               <p><strong>Waktu Respon:</strong> {item.responseTime}</p>
               <p><strong>Keluhan Terselesaikan:</strong> {item.complaintsResolved}</p>
             </div>
-            <button
-              onClick={() => deleteRecord(item.id)}
-              className="text-red-500 hover:underline"
-            >
-              Hapus
-            </button>
+            <div className="flex flex-col items-end gap-1">
+              <button
+                onClick={() => handleEdit(item)}
+                className="text-blue-500 hover:underline text-sm"
+              >
+                ✏️ Edit
+              </button>
+              <button
+                onClick={() => handleDelete(item.id)}
+                className="text-red-500 hover:underline text-sm"
+              >
+                🗑️ Hapus
+              </button>
+            </div>
           </li>
         ))}
       </ul>

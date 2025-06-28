@@ -35,12 +35,21 @@ import Segmentasi from './pages/Segmentasi'
 import TentangKami from './pages/TentangKami'
 import TambahCampaign from './pages/TambahCampaign';
 
+import Kontak from './pages/Kontak'
+import { AnalyticsProvider } from './context/AnalyticsContext';
+import Analytics from './pages/Analytics'
+import KelolaAnalytics from './pages/KelolaAnalytics'
+import KelolaAppointment from './pages/KelolaAppointment'
+import EmailLayout from './pages/Email/EmailLayout'
+import EmailInbox from './pages/Email/EmailInbox'
+import EmailTemplateList from './pages/Email/EmailTemplateList'
+import EmailTemplateForm from './pages/Email/EmailTemplateForm'
 
 
 export default function App() {
   return (
     <GuideProvider>
-      
+      <AnalyticsProvider>
       <Routes>
         {/* Wrapper layout yang memuat Sidebar, Header, dll */}
 
@@ -106,6 +115,12 @@ export default function App() {
            <Route path="appointment" element={<KelolaTransaksi />} />
           <Route path="Analisis" element={<KelolaTransaksi  />} />
           <Route path="/kelola-analytics" element={<KelolaTransaksi />} />
+          <Route path="/Analisis" element={<Analytics  />} />
+          <Route path="/kelola-analytics" element={<KelolaAnalytics />} />
+          <Route path='/appointment' element={<KelolaAppointment/>} />
+          <Route path='/email'element={<EmailInbox />} />
+           <Route path="email/template" element={<EmailTemplateList />} />
+          <Route path="email/template/add" element={<EmailTemplateForm />} />
 
         </Route>
 
@@ -123,7 +138,7 @@ export default function App() {
           
          </Route>
       </Routes>
-  
+      </AnalyticsProvider>
     </GuideProvider>
   );
 }

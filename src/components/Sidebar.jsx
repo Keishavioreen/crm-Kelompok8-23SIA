@@ -11,6 +11,11 @@ import {
   ClipboardList,
   Award,
   Megaphone, // order management
+   HelpCircle,
+  CreditCard,
+  Inbox,
+  CalendarCheck,
+  Activity,  // order management
 } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import "./color.css";
@@ -28,6 +33,12 @@ const menuItems = [
   { name: 'Analisis', icon: <BarChart3 />, path: '/Analisis' },
   { name: 'Loyalty', icon: <Award />, path: '/Loyalty' },
    { name: 'Campaign', icon: <Megaphone  />, path: '/Campaign' },
+  { name: 'FAQ',               icon: <HelpCircle />,      path: '/faq' },
+  { name: 'Kelola Transaksi',  icon: <CreditCard />,      path: '/transaksi' },
+  { name: 'KelolaAppointment', icon: <CalendarCheck />, path: '/appointment' },
+  { name: 'Analisis', icon: <Activity />, path: '/Analisis' },
+  { name: 'Loyalty', icon: <BarChart3 />, path: '/Loyalty' },
+  { name: 'Email', icon: <Inbox />, path: '/email' },
 ];
 
 const accountItems = [

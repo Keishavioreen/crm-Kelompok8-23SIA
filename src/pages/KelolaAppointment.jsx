@@ -179,7 +179,7 @@ export default function KelolaAppointment() {
             resetForm();
             setShowModal(true);
           }}
-          className="px-4 py-2 bg-teal-600 text-white rounded hover:bg-teal-700 transition flex items-center gap-2"
+          className="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded "
         >
           + Tambah
         </button>
@@ -207,7 +207,7 @@ export default function KelolaAppointment() {
             setLokasi("");
             setStatus("");
           }}
-          className="text-red-500 hover:underline ml-auto"
+          className="text-white bg-teal-600 hover:bg-teal-700 hover:underline ml-auto"
         >
           🔄 Reset Filter
         </button>
