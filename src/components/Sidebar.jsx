@@ -8,7 +8,12 @@ import {
   LogIn,
   UserPlus,
   BarChart3,     // FAQ & laporan lain
-  ClipboardList, // order management
+  ClipboardList,
+   HelpCircle,
+  CreditCard,
+  Inbox,
+  CalendarCheck,
+  Activity,  // order management
 } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import "./color.css";
@@ -20,11 +25,12 @@ const menuItems = [
   { name: 'Penjualan',         icon: <ShoppingCart />,   path: '/penjualan' },
   { name: 'Order Management',  icon: <ClipboardList />,  path: '/orders' },
   { name: 'Data Pelanggan',    icon: <Users />,          path: '/pelanggan' },
-  { name: 'FAQ',               icon: <BarChart3 />,      path: '/faq' },
-  { name: 'Kelola Transaksi',  icon: <BarChart3 />,      path: '/transaksi' },
-  { name: 'KelolaAppointment', icon: <BarChart3 />, path: '/Appoinment' },
-  { name: 'Analisis', icon: <BarChart3 />, path: '/Analisis' },
+  { name: 'FAQ',               icon: <HelpCircle />,      path: '/faq' },
+  { name: 'Kelola Transaksi',  icon: <CreditCard />,      path: '/transaksi' },
+  { name: 'KelolaAppointment', icon: <CalendarCheck />, path: '/appointment' },
+  { name: 'Analisis', icon: <Activity />, path: '/Analisis' },
   { name: 'Loyalty', icon: <BarChart3 />, path: '/Loyalty' },
+  { name: 'Email', icon: <Inbox />, path: '/email' },
 ];
 
 const accountItems = [
