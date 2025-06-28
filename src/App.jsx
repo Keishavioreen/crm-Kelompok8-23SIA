@@ -1,69 +1,56 @@
-import { AnalyticsProvider } from './context/AnalyticsContext'; 
-
-import { Routes, Route } from 'react-router-dom'
-import MainLayout from './components/MainLayout'
-import Dashboard from './pages/Dashboard'
-import SalesManagement from './pages/SalesManagement'
-import CustomerManagement from './pages/CustomerManagement'
-import StokObat from './pages/StokObat'
-import Laporan from './pages/Laporan'
-import Chatbot from './components/Chatbot'
-import FAQ from './pages/FAQ'
-import GuideForm from './pages/GuideFrom'
+import { AnalyticsProvider } from './context/AnalyticsContext';
+import { Routes, Route } from 'react-router-dom';
+import MainLayout from './components/MainLayout';
+import Dashboard from './pages/Dashboard';
+import SalesManagement from './pages/SalesManagement';
+import CustomerManagement from './pages/CustomerManagement';
+import StokObat from './pages/StokObat';
+import Laporan from './pages/Laporan';
+import Chatbot from './components/Chatbot';
+import FAQ from './pages/FAQ';
+import GuideForm from './pages/GuideFrom';
 import { GuideProvider } from "./context/GuideContext";
-import KelolaTransaksi from './pages/KelolaTransaksi'
-import OrderManagement from './pages/OrderManagement'
-import LoyaltyPage from './pages/LoyaltyPage'
-import LoyaltyEdit from './pages/LoyaltyEdit'
-import Signin from './pages/Signin'
-import Signup from './pages/Signup'
-import Campaign from './pages/Campaign'
-import Trigger from './pages/Trigger'
-import KelolaAppointment from './pages/KelolaAppointment'
-import Analytics from './pages/Analytics'
-import KelolaAnalytics from './pages/KelolaAnalytics'
-import UserLayout from './components/UserLayout'
-import DashboardUser from './pages/DashboardUser'
-import Kontak from './pages/Kontak'
+import KelolaTransaksi from './pages/KelolaTransaksi';
+import OrderManagement from './pages/OrderManagement';
+import LoyaltyPage from './pages/LoyaltyPage';
+import LoyaltyEdit from './pages/LoyaltyEdit';
+import Signin from './pages/Signin';
+import Signup from './pages/Signup';
+import Campaign from './pages/Campaign';
+import Trigger from './pages/Trigger';
+import KelolaAppointment from './pages/KelolaAppointment';
+import Analytics from './pages/Analytics';
+import KelolaAnalytics from './pages/KelolaAnalytics';
+import UserLayout from './components/UserLayout';
+import DashboardUser from './pages/DashboardUser';
+import Kontak from './pages/Kontak';
 import AkunUser from './pages/AkunUser';
 import ProductUser from './pages/Productuser';
 import FaqPage from './pages/FaqPage';
 import CartPage from './pages/CartPage';
 import DetailTrigger from './pages/DetailTrigger';
 import HomeUser from './pages/HomeUser';
-import Segmentasi from './pages/Segmentasi'
-import TentangKami from './pages/TentangKami'
+import Segmentasi from './pages/Segmentasi';
+import TentangKami from './pages/TentangKami';
 import TambahCampaign from './pages/TambahCampaign';
-
-
 
 export default function App() {
   return (
     <GuideProvider>
-      
       <Routes>
-        {/* Wrapper layout yang memuat Sidebar, Header, dll */}
-
-         {/* Pengaturan akun */}
-           <Route path="/signin" element={<Signin />} />
-            <Route path="/signup" element={<Signup />} />
+        {/* Halaman default sekarang ke Signin */}
+        <Route path="/" element={<Signin />} />
+        <Route path="/signin" element={<Signin />} />
+        <Route path="/signup" element={<Signup />} />
 
         <Route element={<MainLayout />}>
-          {/* Dashboard */}
-          <Route path="/" element={<Dashboard />} />
-
+          {/* Admin dashboard sekarang di path /dashboard */}
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/stok" element={<StokObat />} />
-
-          {/* Transaksional */}
           <Route path="/penjualan" element={<SalesManagement />} />
           <Route path="/orders" element={<OrderManagement />} />
           <Route path="/transaksi" element={<KelolaTransaksi />} />
-
-          {/* Pelanggan & Segmentasi */}
           <Route path="/pelanggan" element={<CustomerManagement />} />
-         
-
-          {/* Lain‑lain */}
           <Route path="/laporan" element={<Laporan />} />
           <Route path="/chatbot" element={<Chatbot />} />
           <Route path="/Loyalty" element={<LoyaltyPage />} />
@@ -71,45 +58,16 @@ export default function App() {
           <Route path="/Campaign" element={<Campaign />} />
           <Route path="/Trigger" element={<Trigger />} />
           <Route path="/TambahCampaign" element={<TambahCampaign />} />
-          
-
-          {/* FAQ & panduan */}
           <Route path="/faq" element={<FAQ />} />
           <Route path="/faq/add" element={<GuideForm />} />
           <Route path="/faq/:id" element={<GuideForm />} />
-          <Route path='/' element={<Dashboard />} />
-          <Route path='Penjualan' element={<SalesManagement />} />
-          <Route path='/pelanggan' element={< CustomerManagement/>} />
-          <Route path="/stok-obat" element={<StokObat/>} />
-          <Route path="/laporan" element={<Laporan/>} />
-          <Route path='Chatbot' element={<Chatbot/>} />
-          <Route path="/pelanggan" element={<CustomerManagement />}>
-            <Route path="segmentasi" element={<Segmentasi />} />
-          </Route>
-          <Route path='Chatbot' element={<Chatbot  />} />
-           <Route path='Penjualan' element={<SalesManagement />} />
-           <Route path='Chatbot' element={<Chatbot  />} />
-           <Route path='FAQ' element={<FAQ  />} />
-           <Route path="/faq/add"    element={<GuideForm />} />   
-           <Route path="/faq/:id"    element={<GuideForm />} />     
-           <Route path="transaksi" element={<KelolaTransaksi />} />
-           <Route path="appointment" element={<KelolaTransaksi />} />
-          <Route path="Analisis" element={<KelolaTransaksi  />} />
-          <Route path="/kelola-analytics" element={<KelolaTransaksi />} />
-           <Route path="/Appoinment" element={<KelolaAppointment />} />
-          <Route path="/Analisis" element={<Analytics  />} />
+          <Route path="/pelanggan/segmentasi" element={<Segmentasi />} />
+          <Route path="/Appoinment" element={<KelolaAppointment />} />
+          <Route path="/Analisis" element={<Analytics />} />
           <Route path="/kelola-analytics" element={<KelolaAnalytics />} />
-         
-           <Route path="/Appoinment" element={<KelolaAppointment />} />
-          <Route path="/Analisis" element={<Analytics  />} />
-          <Route path="/kelola-analytics" element={<KelolaAnalytics />} />
-           <Route path="appointment" element={<KelolaTransaksi />} />
-          <Route path="Analisis" element={<KelolaTransaksi  />} />
-          <Route path="/kelola-analytics" element={<KelolaTransaksi />} />
-
         </Route>
 
-         <Route element={<UserLayout />}>
+        <Route element={<UserLayout />}>
           <Route path="/UserDashboard" element={<DashboardUser />} />
           <Route path="/TentangKami" element={<TentangKami />} />
           <Route path="/Kontak" element={<Kontak />} />
@@ -119,11 +77,8 @@ export default function App() {
           <Route path="/Keranjang" element={<CartPage />} />
           <Route path="/DetailTrigger/:id" element={<DetailTrigger />} />
           <Route path="/Home" element={<HomeUser />} />
-          <Route path="/TentangKami" element={<TentangKami />} />
-          
-         </Route>
+        </Route>
       </Routes>
-  
     </GuideProvider>
   );
 }
