@@ -1,4 +1,3 @@
-// AnalyticsContext.jsx
 import React, { createContext, useContext, useState } from "react";
 
 const AnalyticsContext = createContext();
@@ -29,17 +28,55 @@ export const AnalyticsProvider = ({ children }) => {
         { name: "35k", team: 100, feedback: 10 },
         { name: "45k", team: 50, feedback: 60 },
         { name: "55k", team: 70, feedback: 80 },
-        { name: "60k", team: 40, feedback: 100 },
+        { name: "60k", team: 40, feedback: 100 }
       ]
-    },
+    }
   ]);
 
   const addRecord = (data) => {
-    setAnalyticsData((prev) => [...prev, { ...data, id: Date.now() }]);
+    const defaultStructure = {
+      complaintsUnresolved: 0,
+      totalSales: 0,
+      totalTransaksi: 0,
+      keluhan: [],
+      performa: []
+    };
+
+    const newRecord = {
+      id: Date.now(),
+      ...defaultStructure,
+      ...data,
+      rating: Number(data.rating),
+      complaintsResolved: Number(data.complaintsResolved),
+    };
+
+    setAnalyticsData((prev) => [...prev, newRecord]);
+  };
+
+  const deleteRecord = (id) => {
+    setAnalyticsData((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  const updateRecord = (updated) => {
+    setAnalyticsData((prev) =>
+      prev.map((item) => (item.id === updated.id ? {
+        ...item,
+        ...updated,
+        rating: Number(updated.rating),
+        complaintsResolved: Number(updated.complaintsResolved)
+      } : item))
+    );
   };
 
   return (
-    <AnalyticsContext.Provider value={{ analyticsData, addRecord }}>
+    <AnalyticsContext.Provider
+      value={{
+        analyticsData,
+        addRecord,
+        deleteRecord,
+        updateRecord
+      }}
+    >
       {children}
     </AnalyticsContext.Provider>
   );
