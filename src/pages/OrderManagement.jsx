@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 const initialOrders = [
   {
     id: 'ORD-001',
-    kodeApotek: 'APTK-007676',
+    namaPelanggan: 'Dina Susanti',
     products: [
       { name: 'Paracetamol 2 Strip', price: 15000 },
       { name: 'Vitamin C 1 Botol', price: 15000 }
@@ -13,7 +13,7 @@ const initialOrders = [
   },
   {
     id: 'ORD-002',
-    kodeApotek: 'APTK-007676',
+    namaPelanggan: 'Kartika Sari',
     products: [
       { name: 'Paracetamol 2 Strip', price: 15000 }
     ],
@@ -70,7 +70,7 @@ export default function OrderManagement() {
   const filteredOrders = orders.filter(order => {
     const matchesSearch =
       order.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      order.kodeApotek.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      order.namaPelanggan.toLowerCase().includes(searchTerm.toLowerCase()) ||
       order.products.some(p => p.name.toLowerCase().includes(searchTerm.toLowerCase()));
     const matchesStatus = filterStatus === '' || order.status === filterStatus;
     return matchesSearch && matchesStatus;
@@ -83,7 +83,7 @@ export default function OrderManagement() {
       <div className="flex flex-col md:flex-row gap-4">
         <input
           type="text"
-          placeholder="Cari ID, Kode Apotek, atau Produk"
+          placeholder="Cari ID, Nama Pelanggan, atau Produk"
           className="w-full md:w-1/2 px-4 py-2 border rounded shadow"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
@@ -106,7 +106,7 @@ export default function OrderManagement() {
           <thead className="bg-gray-100 text-left">
             <tr>
               <th className="px-4 py-2">ID</th>
-              <th className="px-4 py-2">Kode Apotek</th>
+              <th className="px-4 py-2">Nama Pelanggan</th>
               <th className="px-4 py-2">Produk</th>
               <th className="px-4 py-2">Tanggal</th>
               <th className="px-4 py-2">Total</th>
@@ -128,7 +128,7 @@ export default function OrderManagement() {
                   <React.Fragment key={order.id}>
                     <tr className="border-t hover:bg-gray-50">
                       <td className="px-4 py-2">{order.id}</td>
-                      <td className="px-4 py-2">{order.kodeApotek}</td>
+                      <td className="px-4 py-2">{order.namaPelanggan}</td>
                       <td className="px-4 py-2">{order.products.map(p => p.name).join(', ')}</td>
                       <td className="px-4 py-2">{order.date}</td>
                       <td className="px-4 py-2">Rp {total.toLocaleString()}</td>
@@ -146,7 +146,7 @@ export default function OrderManagement() {
                       <tr className="bg-gray-50 border-b">
                         <td colSpan="7" className="p-4">
                           <h3 className="font-semibold mb-2">Detail Pesanan</h3>
-                          <p><strong>Kode Apotek:</strong> {order.kodeApotek}</p>
+                          <p><strong>Nama Pelanggan:</strong> {order.namaPelanggan}</p>
                           <p><strong>Tanggal:</strong> {order.date}</p>
                           <p><strong>Total:</strong> Rp {total.toLocaleString()}</p>
 
