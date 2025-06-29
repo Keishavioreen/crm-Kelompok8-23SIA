@@ -5,6 +5,7 @@ export default function CartPage() {
   const [coupon, setCoupon] = useState('');
   const [showInvalid, setShowInvalid] = useState(false);
   const [cartItems, setCartItems] = useState([]);
+  const [showCheckoutNotif, setShowCheckoutNotif] = useState(false); // Notifikasi checkout
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,6 +45,20 @@ export default function CartPage() {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
+  const handleCheckout = () => {
+    setShowCheckoutNotif(true);
+  
+    // Kosongkan keranjang
+    setCartItems([]); 
+    localStorage.removeItem("cart"); // Hapus data keranjang dari localStorage
+  
+    // Tutup notifikasi setelah beberapa detik
+    setTimeout(() => {
+      setShowCheckoutNotif(false);
+    }, 3000);
+  };
+  
+
   const subtotal = cartItems.reduce((total, item) => total + (item.harga * item.qty), 0);
   const diskon = coupon.trim().toLowerCase() === 'diskon10' ? subtotal * 0.1 : 0;
   const pajak = 2000;
@@ -51,12 +66,32 @@ export default function CartPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 py-10 px-4 sm:px-8 relative overflow-hidden">
+      {/* Notifikasi kupon tidak valid */}
       {showInvalid && (
         <div className="absolute inset-0 z-40 flex items-center justify-center">
           <div className="absolute inset-0 backdrop-blur-sm bg-transparent"></div>
           <div className="bg-white px-12 py-8 rounded-lg shadow-xl text-center z-50 border border-red-500">
             <p className="text-xl font-bold text-red-600">Kupon Invalid</p>
             <div className="mt-2 text-red-600 text-lg font-bold">•</div>
+          </div>
+        </div>
+      )}
+
+      {/* Notifikasi checkout */}
+      {showCheckoutNotif && (
+        <div className="absolute inset-0 z-50 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black opacity-50"></div>
+          <div className="bg-white px-12 py-8 rounded-lg shadow-lg text-center z-50 border border-green-500">
+            <h1 className="text-2xl font-bold text-green-600 mb-4">🎉 Pembelian Berhasil!</h1>
+            <p className="text-gray-700 text-sm mb-6">
+              Terima kasih telah berbelanja! Pesanan Anda sedang diproses.
+            </p>
+            <button
+              className="bg-[#007676] text-white px-4 py-2 rounded text-sm hover:bg-[#006060] transition"
+              onClick={() => setShowCheckoutNotif(false)}
+            >
+              Oke
+            </button>
           </div>
         </div>
       )}
@@ -157,7 +192,10 @@ export default function CartPage() {
               </div>
             </div>
 
-            <button className="w-full bg-[#007676] text-white py-2 rounded font-medium hover:bg-[#006060]">
+            <button
+              onClick={handleCheckout}
+              className="w-full bg-[#007676] text-white py-2 rounded font-medium hover:bg-[#006060]"
+            >
               Checkout Sekarang
             </button>
           </div>

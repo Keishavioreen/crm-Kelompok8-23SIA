@@ -100,7 +100,7 @@ const TambahCampaign = () => {
             segmentasi
           </label>
           <div className="flex items-center gap-4 mt-2">
-            {["Silver", "Gold", "Platinum"].map((segment) => (
+            {["Silver", "Gold", "Platinum","Select All"].map((segment) => (
               <label key={segment} className="flex items-center gap-2">
                 <input
                   type="checkbox"
