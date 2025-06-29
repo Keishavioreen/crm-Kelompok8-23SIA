@@ -21,7 +21,7 @@ import { Link, useLocation } from 'react-router-dom';
 import "./color.css";
 
 const menuItems = [
-  { name: 'Dashboard',         icon: <LayoutDashboard />, path: '/' },
+  { name: 'Dashboard',         icon: <LayoutDashboard />, path: '/dashboard' },
   { name: 'Stok Obat',            icon: <Box />,            path: '/stok' },
   { name: 'Laporan',           icon: <BarChart2 />,      path: '/laporan' },
   { name: 'Penjualan',         icon: <ShoppingCart />,   path: '/penjualan' },
