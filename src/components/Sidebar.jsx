@@ -31,7 +31,7 @@ const menuItems = [
    { name: 'Campaign', icon: <Megaphone  />, path: '/Campaign' },
   { name: 'FAQ',               icon: <HelpCircle />,      path: '/faq' },
   { name: 'Kelola Transaksi',  icon: <CreditCard />,      path: '/transaksi' },
-  { name: 'KelolaAppointment', icon: <CalendarCheck />, path: '/Appoinment' },
+  { name: 'KelolaAppointment', icon: <CalendarCheck />, path: '/Appointment' },
   { name: 'Analisis', icon: <Activity />, path: '/Analisis' },
   { name: 'Email', icon: <Inbox />, path: '/email' },
 ];
