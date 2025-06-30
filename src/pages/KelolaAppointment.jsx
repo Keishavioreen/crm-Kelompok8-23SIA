@@ -8,15 +8,13 @@ const statusColor = {
   Dijadwalkan: "bg-purple-100 text-purple-600",
 };
 
-// convert string like "04 Sep 2019" to Date obj
 const parseDate = (str) => {
-  // split "04 Sep 2019" => ["04", "Sep", "2019"]
   const [day, mon, year] = str.split(" ");
   return new Date(`${day} ${mon} ${year}`);
 };
 
-// ---------- dummy data ----------
-const dataDummy = [
+// ---------- initial data ----------
+const initialData = [
   {
     id: "00001",
     nama: "Andi Wijaya",
@@ -102,18 +100,13 @@ const dataDummy = [
 
 // ---------- main component ----------
 export default function KelolaAppointment() {
-  // filters
+  const [data, setData] = useState(initialData);
   const [filterLokasi, setLokasi] = useState("");
   const [filterStatus, setStatus] = useState("");
-
-  // sorting
   const [sortAsc, setSortAsc] = useState(true);
-
-  // pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
-  // form modal
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
     id: "",
@@ -126,30 +119,30 @@ export default function KelolaAppointment() {
   });
 
   const resetForm = () =>
-    setFormData({ id: "", nama: "", diagnosis: "", lokasi: "", tanggal: "", layanan: "", status: "Dijadwalkan" });
-
-  // derive data
-  const filteredSorted = useMemo(() => {
-    let rows = [...dataDummy];
-
-    // filter
-    rows = rows.filter((r) => {
-      return (
-        (filterLokasi === "" || r.lokasi === filterLokasi) &&
-        (filterStatus === "" || r.status === filterStatus)
-      );
+    setFormData({
+      id: "",
+      nama: "",
+      diagnosis: "",
+      lokasi: "",
+      tanggal: "",
+      layanan: "",
+      status: "Dijadwalkan",
     });
 
-    // sort by tanggal
+  const filteredSorted = useMemo(() => {
+    let rows = [...data];
+    rows = rows.filter(
+      (r) =>
+        (filterLokasi === "" || r.lokasi === filterLokasi) &&
+        (filterStatus === "" || r.status === filterStatus)
+    );
     rows.sort((a, b) => {
       const diff = parseDate(a.tanggal) - parseDate(b.tanggal);
       return sortAsc ? diff : -diff;
     });
-
     return rows;
-  }, [filterLokasi, filterStatus, sortAsc]);
+  }, [data, filterLokasi, filterStatus, sortAsc]);
 
-  // pagination slice
   const totalPages = Math.ceil(filteredSorted.length / itemsPerPage);
   const paginated = filteredSorted.slice(
     (currentPage - 1) * itemsPerPage,
@@ -157,14 +150,14 @@ export default function KelolaAppointment() {
   );
 
   const handleSave = () => {
-    // simple local push (in real app, post to backend)
     if (!formData.id) {
-      // add id automatically
-      formData.id = String(dataDummy.length + 1).padStart(5, "0");
-      dataDummy.push({ ...formData });
+      const newId = String(data.length + 1).padStart(5, "0");
+      setData([...data, { ...formData, id: newId }]);
     } else {
-      const idx = dataDummy.findIndex((r) => r.id === formData.id);
-      if (idx > -1) dataDummy[idx] = { ...formData };
+      const updated = data.map((item) =>
+        item.id === formData.id ? { ...formData } : item
+      );
+      setData(updated);
     }
     resetForm();
     setShowModal(false);
@@ -179,13 +172,12 @@ export default function KelolaAppointment() {
             resetForm();
             setShowModal(true);
           }}
-          className="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded "
+          className="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded"
         >
           + Tambah
         </button>
       </div>
 
-      {/* Filter bar */}
       <div className="flex flex-wrap gap-3 items-center">
         <span className="flex items-center gap-1 text-gray-600 font-medium">
           <span className="text-xl">🧭</span> Filter By
@@ -213,7 +205,6 @@ export default function KelolaAppointment() {
         </button>
       </div>
 
-      {/* Table */}
       <div className="overflow-auto rounded-xl border">
         <table className="min-w-full text-sm text-left text-gray-700">
           <thead className="bg-gray-50 text-xs uppercase font-semibold">
@@ -222,11 +213,7 @@ export default function KelolaAppointment() {
               <th className="p-3">Nama</th>
               <th className="p-3">Data Medis Singkat</th>
               <th className="p-3">Lokasi</th>
-              {/* clickable sort */}
-              <th
-                className="p-3 cursor-pointer select-none"
-                onClick={() => setSortAsc(!sortAsc)}
-              >
+              <th className="p-3 cursor-pointer select-none" onClick={() => setSortAsc(!sortAsc)}>
                 Tanggal Janji {sortAsc ? "▲" : "▼"}
               </th>
               <th className="p-3">Jenis Layanan</th>
@@ -244,7 +231,14 @@ export default function KelolaAppointment() {
                 <td className="p-3">{row.tanggal}</td>
                 <td className="p-3">{row.layanan}</td>
                 <td className="p-3">
-                  <span className={clsx("px-3 py-1 rounded-full text-xs font-semibold", statusColor[row.status])}>{row.status}</span>
+                  <span
+                    className={clsx(
+                      "px-3 py-1 rounded-full text-xs font-semibold",
+                      statusColor[row.status]
+                    )}
+                  >
+                    {row.status}
+                  </span>
                 </td>
                 <td className="p-3">
                   <button
@@ -256,12 +250,19 @@ export default function KelolaAppointment() {
                   >
                     Edit
                   </button>
+                  <button
+                    className="text-red-600 hover:underline ml-3"
+                    onClick={() => {
+                      setData(data.filter((item) => item.id !== row.id));
+                    }}
+                  >
+                    Hapus
+                  </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-        {/* footer */}
         <div className="flex items-center justify-between p-3 text-sm text-gray-500">
           <span>
             Showing {(currentPage - 1) * itemsPerPage + 1}–
@@ -319,7 +320,8 @@ export default function KelolaAppointment() {
                 onChange={(e) => setFormData({ ...formData, lokasi: e.target.value })}
               />
               <input
-                type="date"
+                type="text"
+                placeholder="04 Sep 2019"
                 className="border rounded p-2"
                 value={formData.tanggal}
                 onChange={(e) => setFormData({ ...formData, tanggal: e.target.value })}
