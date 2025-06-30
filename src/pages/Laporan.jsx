@@ -19,6 +19,7 @@ import {
   Wallet,
 } from "lucide-react";
 
+
 // Dummy data
 const dailySales = [
   { date: "01 Jun", sales: 150 },
