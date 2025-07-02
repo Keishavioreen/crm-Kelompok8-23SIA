@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { supabase } from "../supabase";
 
 const HeaderUser = () => {
@@ -17,11 +18,10 @@ const HeaderUser = () => {
 
       const user = userData.user;
 
-      // Gunakan email untuk mencocokkan di tabel akun
       const { data, error } = await supabase
         .from("akun")
         .select("loyalty")
-        .eq("email", user.email) // Cocokkan berdasarkan email
+        .eq("email", user.email)
         .maybeSingle();
 
       if (error) {
@@ -35,7 +35,7 @@ const HeaderUser = () => {
       }
 
       setUserLoyalty(data.loyalty);
-      await fetchCampaignNotifications(data.loyalty); // Ambil notifikasi berdasarkan loyalty
+      await fetchCampaignNotifications(data.loyalty);
     } catch (error) {
       console.error("Unexpected error fetching user loyalty:", error.message);
     }
@@ -58,7 +58,6 @@ const HeaderUser = () => {
     }
   };
 
-  // Panggil fungsi fetchUserLoyalty saat komponen dimuat
   useEffect(() => {
     fetchUserLoyalty();
   }, []);
@@ -69,11 +68,12 @@ const HeaderUser = () => {
 
   return (
     <header className="bg-white shadow-sm">
+      {/* Layer 1: Logo, Search, Icon Menu */}
       <div className="py-4 px-4 sm:px-6 lg:px-8 border-b border-gray-200">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           {/* Logo */}
-          <div>
-            <img className="block w-32 h-auto" src="/logo2.png" alt="Logo" />
+          <div className="flex items-center">
+            <img className="block w-32 h-auto" src="/logo2.png" alt="logo" />
           </div>
 
           {/* Search Bar */}
@@ -85,8 +85,8 @@ const HeaderUser = () => {
             />
           </div>
 
-          {/* Grouped icons with spacing */}
-          <div className="flex items-center gap-6">
+          {/* Icons */}
+          <div className="flex items-center space-x-6">
             {/* Notifikasi */}
             <div className="relative">
               <button
@@ -95,7 +95,7 @@ const HeaderUser = () => {
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
+                  className="h-7 w-7"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -121,12 +121,12 @@ const HeaderUser = () => {
                     {campaignNotifications.length > 0 ? (
                       campaignNotifications.map((notif) => (
                         <li key={notif.id} className="hover:bg-gray-100">
-                          <a
-                            href={`/DetailTrigger/${notif.id}`}
+                          <Link
+                            to={`/detailtrigger/${notif.id}`}
                             className="block px-4 py-3 text-gray-800 hover:text-blue-600 transition"
                           >
                             {notif.judul || "Tidak ada judul"}
-                          </a>
+                          </Link>
                         </li>
                       ))
                     ) : (
@@ -138,7 +138,10 @@ const HeaderUser = () => {
             </div>
 
             {/* Keranjang */}
-            <a href="/Keranjang" className="text-gray-900 hover:text-blue-600 transition flex items-center">
+            <Link
+              to="/keranjang"
+              className="text-gray-900 hover:text-blue-600 transition flex items-center"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -154,10 +157,10 @@ const HeaderUser = () => {
                 />
               </svg>
               <span className="ml-2 font-medium">Keranjang</span>
-            </a>
+            </Link>
 
             {/* Akun */}
-            <a href="/Akun" className="text-gray-900 hover:text-blue-600 transition flex items-center">
+            <Link to="/akun" className="text-gray-900 hover:text-blue-600 transition flex items-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -173,59 +176,21 @@ const HeaderUser = () => {
                 />
               </svg>
               <span className="ml-2 font-medium">Akun</span>
-            </a>
+            </Link>
           </div>
-
-          
         </div>
-        
       </div>
-      <nav className="bg-teal-600 text-white">
-        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ul className="flex justify-around py-4">
-            <li>
-              <a
-                href="/Home"
-                className="text-white hover:text-blue-200 font-medium transition"
-              >
-                Home
-              </a>
-            </li>
-            <li>
-              <a
-                href="/Produk"
-                className="text-white hover:text-blue-200 font-medium transition"
-              >
-                Produk
-              </a>
-            </li>
-            <li>
-              <a
-                href="/FaqUser"
-                className="text-white hover:text-blue-200 font-medium transition"
-              >
-                FAQ
-              </a>
-            </li>
-            <li>
-              <a
-                href="/TentangKami"
-                className="text-white hover:text-blue-200 font-medium transition"
-              >
-                Tentang Kami
-              </a>
-            </li>
-            <li>
-              <a
-                href="/Kontak"
-                className="text-white hover:text-blue-200 font-medium transition"
-              >
-                Kontak
-              </a>
-            </li>
-          </ul>
+
+      {/* Layer 2: Menu Navigasi */}
+      <div className="bg-teal-600 py-3">
+        <div className="max-w-7xl mx-auto flex justify-center space-x-8 text-white">
+          <Link to="/home" className="hover:text-blue-300 transition">Home</Link>
+          <Link to="/produk" className="hover:text-blue-300 transition">Produk</Link>
+          <Link to="/faquser" className="hover:text-blue-300 transition">FAQ</Link>
+          <Link to="/tentangkami" className="hover:text-blue-300 transition">Tentang Kami</Link>
+          <Link to="/kontak" className="hover:text-blue-300 transition">Kontak</Link>
         </div>
-      </nav>
+      </div>
     </header>
   );
 };
