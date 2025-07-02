@@ -4,6 +4,8 @@ import {
   CategoryScale,
   LinearScale,
   BarElement,
+  BarController,    
+  LineController, 
   LineElement,
   PointElement,
   Title,
@@ -18,12 +20,14 @@ ChartJS.register(
   CategoryScale,
   LinearScale,
   BarElement,
+  BarController,    
+  LineController,   
   LineElement,
   PointElement,
   Title,
   Tooltip,
   Legend,
-  Filler // ✅ jangan lupa ini
+  Filler 
 );
 
 // Ringkasan penjualan
