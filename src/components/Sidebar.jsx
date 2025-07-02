@@ -1,3 +1,4 @@
+// src/components/Sidebar.jsx
 import {
   LayoutDashboard,
   Users,
@@ -48,14 +49,12 @@ const Sidebar = () => {
 
   return (
     <aside className="bg-white w-64 h-full shadow-lg px-4 py-6 hidden md:block overflow-y-auto">
-      {/* LOGO */}
       <img
         className="block mx-auto mb-6 w-32 h-auto"
         src="/logo2.png"
         alt="logo"
       />
 
-      {/* MAIN MENU */}
       <nav className="space-y-1">
         {menuItems.map(({ name, icon, path }) => (
           <Link
@@ -73,7 +72,6 @@ const Sidebar = () => {
         ))}
       </nav>
 
-      {/* ACCOUNT SECTION */}
       <div className="mt-10 text-xs font-semibold text-gray-500">AKUN</div>
       <nav className="mt-2 space-y-1">
         {accountItems.map(({ name, icon, path }) => (
