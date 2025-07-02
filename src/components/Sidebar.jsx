@@ -1,22 +1,22 @@
 import {
   LayoutDashboard,
-  Users,         // pelanggan
-  ShoppingCart,  // penjualan
-  Box,           // Stok
-  BarChart2,     // laporan
-  Settings,      // pengaturan akun
+  Users,
+  ShoppingCart,
+  Box,
+  BarChart2,
+  Settings,
   LogIn,
   UserPlus,
-  BarChart3,     // FAQ & laporan lain
   ClipboardList,
   Award,
-  Megaphone, // order management
-   HelpCircle,
+  Megaphone,
+  HelpCircle,
   CreditCard,
   Inbox,
   CalendarCheck,
-  Activity,  // order management
+  Activity
 } from 'lucide-react';
+
 import { Link, useLocation } from 'react-router-dom';
 import "./color.css";
 
@@ -47,11 +47,11 @@ const Sidebar = () => {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <aside className="bg-white w-64 h-full shadow-lg  px-4 py-6 hidden md:block overflow-y-auto">
+    <aside className="bg-white w-64 h-full shadow-lg px-4 py-6 hidden md:block overflow-y-auto">
       {/* LOGO */}
       <img
         className="block mx-auto mb-6 w-32 h-auto"
-        src="/logo2.png" // let Vite handle public folder asset
+        src="/logo2.png"
         alt="logo"
       />
 
