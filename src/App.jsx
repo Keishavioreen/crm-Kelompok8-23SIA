@@ -32,7 +32,7 @@ import DashboardUser from './pages/DashboardUser';
 import TentangKami from './pages/TentangKami';
 import Kontak from './pages/Kontak';
 import AkunUser from './pages/AkunUser';
-import ProductUser from './pages/Productuser';
+import ProductUser from './pages/ProductUser';
 import FaqPage from './pages/FaqPage';
 import CartPage from './pages/CartPage';
 import DetailTrigger from './pages/DetailTrigger';
