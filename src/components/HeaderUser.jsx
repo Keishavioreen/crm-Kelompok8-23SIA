@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { supabase } from "../supabase";
 
 const HeaderUser = () => {
   const [isNotificationOpen, setNotificationOpen] = useState(false);
-  const [campaignNotifications, setCampaignNotifications] = useState([]); // State untuk data campaign
+  const [campaignNotifications, setCampaignNotifications] = useState([]);
 
-  // Fungsi untuk mengambil data campaign dari Supabase
+  // Ambil notifikasi campaign dari Supabase
   const fetchCampaignNotifications = async () => {
     try {
       const { data, error } = await supabase.from("campaign").select("id, judul");
       if (error) throw error;
-      setCampaignNotifications(data || []); // Simpan data ke state
+      setCampaignNotifications(data || []);
     } catch (error) {
       console.error("Error fetching campaigns:", error.message);
     }
   };
 
-  // Panggil fungsi fetchCampaignNotifications saat komponen dimuat
   useEffect(() => {
     fetchCampaignNotifications();
   }, []);
@@ -27,14 +27,14 @@ const HeaderUser = () => {
 
   return (
     <header className="bg-white shadow-sm">
-      {/* Layer 1: Logo, Search Bar, Akun, Keranjang */}
+      {/* Layer 1: Logo, Search Bar, Notifikasi, Keranjang, Akun */}
       <div className="py-4 px-4 sm:px-6 lg:px-8 border-b border-gray-200">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
             <img
               className="block w-32 h-auto"
-              src="/logo2.png" // Let Vite handle public folder asset
+              src="/logo2.png"
               alt="logo"
             />
           </div>
@@ -64,7 +64,7 @@ const HeaderUser = () => {
             </div>
           </div>
 
-          {/* Akun, Keranjang, dan Notifikasi */}
+          {/* Notifikasi, Keranjang, Akun */}
           <div className="flex items-center space-x-6">
             {/* Notifikasi */}
             <div className="relative">
@@ -74,7 +74,7 @@ const HeaderUser = () => {
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-7 w-7" // Ukuran ikon diperbesar
+                  className="h-7 w-7"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -99,12 +99,12 @@ const HeaderUser = () => {
                   <ul className="divide-y divide-gray-200">
                     {campaignNotifications.map((notif) => (
                       <li key={notif.id} className="hover:bg-gray-100">
-                        <a
-                          href={`/DetailTrigger/${notif.id}`}
+                        <Link
+                          to={`/detailtrigger/${notif.id}`}
                           className="block px-4 py-3 text-gray-800 hover:text-blue-600 transition"
                         >
                           {notif.judul || "Tidak ada judul"}
-                        </a>
+                        </Link>
                       </li>
                     ))}
                   </ul>
@@ -113,8 +113,8 @@ const HeaderUser = () => {
             </div>
 
             {/* Keranjang */}
-            <a
-              href="/Keranjang"
+            <Link
+              to="/keranjang"
               className="text-gray-900 hover:text-blue-600 transition flex items-center"
             >
               <svg
@@ -132,34 +132,34 @@ const HeaderUser = () => {
                 />
               </svg>
               <span className="ml-2">Keranjang</span>
-            </a>
+            </Link>
 
             {/* Akun */}
-            <a href="/Akun" className="text-gray-900 hover:text-blue-600 transition">
+            <Link to="/akun" className="text-gray-900 hover:text-blue-600 transition">
               Akun
-            </a>
+            </Link>
           </div>
         </div>
       </div>
 
-      {/* Layer 2: Produk, Tentang Kami, Kontak */}
+      {/* Layer 2: Menu Navigasi */}
       <div className="bg-teal-600 py-3">
         <div className="max-w-7xl mx-auto flex justify-center space-x-8 text-white">
-          <a href="/Home" className="hover:text-blue-300 transition">
+          <Link to="/home" className="hover:text-blue-300 transition">
             Home
-          </a>
-          <a href="Produk" className="hover:text-blue-300 transition">
+          </Link>
+          <Link to="/produk" className="hover:text-blue-300 transition">
             Produk
-          </a>
-          <a href="/FaqUser" className="hover:text-blue-300 transition">
+          </Link>
+          <Link to="/faquser" className="hover:text-blue-300 transition">
             FAQ
-          </a>
-          <a href="/TentangKami" className="hover:text-blue-300 transition">
+          </Link>
+          <Link to="/tentangkami" className="hover:text-blue-300 transition">
             Tentang Kami
-          </a>
-          <a href="/Kontak" className="hover:text-blue-300 transition">
+          </Link>
+          <Link to="/kontak" className="hover:text-blue-300 transition">
             Kontak
-          </a>
+          </Link>
         </div>
       </div>
     </header>
