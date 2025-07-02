@@ -7,7 +7,7 @@ import MainLayout from './components/MainLayout';
 import UserLayout from './components/UserLayout';
 
 // Pages (Admin)
-import Dashboard from './pages/Dashboard';
+import Dashboard from './pages/Dashboard'; 
 import SalesManagement from './pages/SalesManagement';
 import CustomerManagement from './pages/CustomerManagement';
 import StokObat from './pages/StokObat';

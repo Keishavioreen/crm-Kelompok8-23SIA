@@ -9,9 +9,11 @@ import {
   Title,
   Tooltip,
   Legend,
+  Filler // ✅ Tambahan penting untuk 'fill' di Line chart
 } from "chart.js";
-import { Bar, Line } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 
+// Register semua plugin ChartJS yang diperlukan
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -20,10 +22,11 @@ ChartJS.register(
   PointElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  Filler // ✅ jangan lupa ini
 );
 
-// Data ringkasan penjualan harian/bulanan
+// Ringkasan penjualan
 const salesSummary = {
   totalPenjualan: 125000000,
   labaKotor: 45000000,
@@ -37,7 +40,7 @@ const salesSummary = {
   },
 };
 
-// Data tren penjualan dan transaksi harian (contoh 7 hari)
+// Data grafik penjualan dan transaksi
 const salesTrendData = {
   labels: ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"],
   datasets: [
@@ -47,9 +50,9 @@ const salesTrendData = {
       data: [18000000, 20000000, 17000000, 22000000, 25000000, 23000000, 21000000],
       borderColor: "rgba(37, 99, 235, 1)",
       backgroundColor: "rgba(37, 99, 235, 0.2)",
-      yAxisID: "y",
-      tension: 0.3,
       fill: true,
+      yAxisID: "y",
+      tension: 0.4,
     },
     {
       type: "bar",
@@ -61,9 +64,13 @@ const salesTrendData = {
   ],
 };
 
+// Konfigurasi grafik
 const salesTrendOptions = {
   responsive: true,
-  interaction: { mode: "index", intersect: false },
+  interaction: {
+    mode: "index",
+    intersect: false,
+  },
   stacked: false,
   plugins: {
     legend: { position: "top" },
@@ -74,119 +81,71 @@ const salesTrendOptions = {
       type: "linear",
       display: true,
       position: "left",
-      title: { display: true, text: "Total Penjualan (Rp)" },
+      title: {
+        display: true,
+        text: "Total Penjualan (Rp)",
+      },
       beginAtZero: true,
     },
     y1: {
       type: "linear",
       display: true,
       position: "right",
-      title: { display: true, text: "Jumlah Transaksi" },
+      title: {
+        display: true,
+        text: "Jumlah Transaksi",
+      },
       beginAtZero: true,
-      grid: { drawOnChartArea: false },
+      grid: {
+        drawOnChartArea: false,
+      },
     },
   },
 };
 
-// Data pelanggan (tanpa hutang)
+// Data pelanggan
 const customers = [
-  {
-    nama: "Andi",
-    riwayatPembelian: "Paracetamol, Vitamin C",
-    preferensi: "Vitamin",
-    loyalitas: "Gold",
-  },
-  {
-    nama: "Budi",
-    riwayatPembelian: "Promag, Ibuprofen",
-    preferensi: "Antasida",
-    loyalitas: "Silver",
-  },
-  {
-    nama: "Citra",
-    riwayatPembelian: "Imboost, Paracetamol",
-    preferensi: "Imun Booster",
-    loyalitas: "Bronze",
-  },
+  { nama: "Andi", riwayatPembelian: "Paracetamol, Vitamin C", preferensi: "Vitamin", loyalitas: "Gold" },
+  { nama: "Budi", riwayatPembelian: "Promag, Ibuprofen", preferensi: "Antasida", loyalitas: "Silver" },
+  { nama: "Citra", riwayatPembelian: "Imboost, Paracetamol", preferensi: "Imun Booster", loyalitas: "Bronze" },
 ];
 
 // Data stok produk
 const stockProducts = [
-  {
-    produk: "Paracetamol",
-    stok: 50,
-    kadaluarsa: "2025-12-31",
-    produkTerlaris: true,
-  },
-  {
-    produk: "Amoxicillin",
-    stok: 20,
-    kadaluarsa: "2025-08-15",
-    produkTerlaris: false,
-  },
-  {
-    produk: "Vitamin C",
-    stok: 100,
-    kadaluarsa: "2026-01-10",
-    produkTerlaris: true,
-  },
-  {
-    produk: "Obat Flu",
-    stok: 10,
-    kadaluarsa: "2025-06-30",
-    produkTerlaris: false,
-  },
+  { produk: "Paracetamol", stok: 50, kadaluarsa: "2025-12-31", produkTerlaris: true },
+  { produk: "Amoxicillin", stok: 20, kadaluarsa: "2025-08-15", produkTerlaris: false },
+  { produk: "Vitamin C", stok: 100, kadaluarsa: "2026-01-10", produkTerlaris: true },
+  { produk: "Obat Flu", stok: 10, kadaluarsa: "2025-06-30", produkTerlaris: false },
 ];
 
-// Data laporan keuangan
+// Laporan keuangan
 const financialReport = {
   labaRugi: 35000000,
   arusKas: 20000000,
   analisis: "Keuangan apotek stabil dengan peningkatan penjualan 10% dibanding bulan lalu.",
 };
 
-// Fitur pendukung operasional
-const operationalFeatures = [
-  "Integrasi dengan sistem POS mendukung berbagai metode pembayaran.",
-  "Pengelolaan pesanan online dan pengiriman via marketplace dan e-commerce.",
-  "Kompensasi pelanggan untuk meningkatkan layanan dan kepercayaan.",
-];
-
+// Komponen utama
 export default function Dashboard() {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6 font-sans text-gray-900 dark:text-gray-100">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6 text-gray-900 dark:text-gray-100">
       <header className="mb-8">
-        <h1 className="text-3xl font-semibold">Dashboard Penjualan CRM Apotek</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">
+        <h1 className="text-3xl font-bold">Dashboard Penjualan CRM Apotek</h1>
+        <p className="text-gray-600 dark:text-gray-400">
           Memantau performa penjualan, pelanggan, stok, dan keuangan secara real-time.
         </p>
       </header>
 
-      {/* Ringkasan Data Penjualan */}
+      {/* Ringkasan */}
       <section className="mb-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <StatCard title="Total Penjualan" value={`Rp ${salesSummary.totalPenjualan.toLocaleString()}`} />
+        <StatCard title="Laba Kotor" value={`Rp ${salesSummary.labaKotor.toLocaleString()}`} />
+        <StatCard title="Jumlah Transaksi" value={salesSummary.jumlahTransaksi} />
+        <StatCard title="Total Penerimaan" value={`Rp ${salesSummary.totalPenerimaan.toLocaleString()}`} />
+        <StatCard title="Produk Terjual" value={salesSummary.jumlahProdukTerjual} />
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-          <h2 className="text-lg font-medium mb-2">Total Penjualan</h2>
-          <p className="text-3xl font-bold">Rp {salesSummary.totalPenjualan.toLocaleString()}</p>
-        </div>
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-          <h2 className="text-lg font-medium mb-2">Laba Kotor</h2>
-          <p className="text-3xl font-bold">Rp {salesSummary.labaKotor.toLocaleString()}</p>
-        </div>
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-          <h2 className="text-lg font-medium mb-2">Jumlah Transaksi</h2>
-          <p className="text-3xl font-bold">{salesSummary.jumlahTransaksi}</p>
-        </div>
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-          <h2 className="text-lg font-medium mb-2">Total Penerimaan</h2>
-          <p className="text-3xl font-bold">Rp {salesSummary.totalPenerimaan.toLocaleString()}</p>
-        </div>
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-          <h2 className="text-lg font-medium mb-2">Jumlah Produk Terjual</h2>
-          <p className="text-3xl font-bold">{salesSummary.jumlahProdukTerjual}</p>
-        </div>
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-          <h2 className="text-lg font-medium mb-2">Penjualan per Platform</h2>
-          <ul className="list-disc list-inside">
+          <h2 className="font-medium mb-2">Penjualan per Platform</h2>
+          <ul className="list-disc list-inside text-sm">
             <li>Offline: Rp {salesSummary.penjualanPlatform.offline.toLocaleString()}</li>
             <li>E-Commerce: Rp {salesSummary.penjualanPlatform.ecommerce.toLocaleString()}</li>
             <li>Marketplace: Rp {salesSummary.penjualanPlatform.marketplace.toLocaleString()}</li>
@@ -194,84 +153,32 @@ export default function Dashboard() {
         </div>
       </section>
 
-      {/* Visualisasi Data Penjualan */}
+      {/* Grafik */}
       <section className="mb-10 bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-        <Line options={salesTrendOptions} data={salesTrendData} />
-        <p className="mt-4 font-semibold text-center text-green-600 dark:text-green-400">
+        <Line data={salesTrendData} options={salesTrendOptions} />
+        <p className="mt-4 text-center text-green-600 dark:text-green-400 font-semibold">
           Penjualan meningkat 8% dibanding minggu lalu 📈
         </p>
       </section>
 
-      {/* Manajemen Pelanggan (CRM) */}
-      <section className="mb-10">
-        <h2 className="text-2xl font-semibold mb-4">Manajemen Pelanggan (CRM)</h2>
-        <div className="overflow-x-auto">
-          <table className="min-w-full table-auto border-collapse border border-gray-300 dark:border-gray-700">
-            <thead>
-              <tr className="bg-gray-100 dark:bg-gray-700">
-                <th className="border border-gray-300 dark:border-gray-600 px-4 py-2 text-left">Nama</th>
-                <th className="border border-gray-300 dark:border-gray-600 px-4 py-2 text-left">Riwayat Pembelian</th>
-                <th className="border border-gray-300 dark:border-gray-600 px-4 py-2 text-left">Preferensi</th>
-                <th className="border border-gray-300 dark:border-gray-600 px-4 py-2 text-left">Loyalitas</th>
-              </tr>
-            </thead>
-            <tbody>
-              {customers.map(({ nama, riwayatPembelian, preferensi, loyalitas }) => (
-                <tr key={nama} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                  <td className="border border-gray-300 dark:border-gray-600 px-4 py-2">{nama}</td>
-                  <td className="border border-gray-300 dark:border-gray-600 px-4 py-2">{riwayatPembelian}</td>
-                  <td className="border border-gray-300 dark:border-gray-600 px-4 py-2">{preferensi}</td>
-                  <td className="border border-gray-300 dark:border-gray-600 px-4 py-2">{loyalitas}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-            Pengingat pembelian rutin dan pengelolaan loyalitas pelanggan dapat diintegrasikan untuk meningkatkan retensi.
-          </p>
-        </div>
-      </section>
+      {/* CRM */}
+      <DataTable title="Manajemen Pelanggan (CRM)" data={customers} columns={["nama", "riwayatPembelian", "preferensi", "loyalitas"]} />
 
-      {/* Manajemen Stok dan Produk */}
-      <section className="mb-10">
-        <h2 className="text-2xl font-semibold mb-4">Manajemen Stok dan Produk</h2>
-        <div className="overflow-x-auto">
-          <table className="min-w-full table-auto border-collapse border border-gray-300 dark:border-gray-700">
-            <thead>
-              <tr className="bg-gray-100 dark:bg-gray-700">
-                <th className="border border-gray-300 dark:border-gray-600 px-4 py-2 text-left">Produk</th>
-                <th className="border border-gray-300 dark:border-gray-600 px-4 py-2 text-left">Stok</th>
-                <th className="border border-gray-300 dark:border-gray-600 px-4 py-2 text-left">Tanggal Kadaluarsa</th>
-                <th className="border border-gray-300 dark:border-gray-600 px-4 py-2 text-left">Produk Terlaris</th>
-              </tr>
-            </thead>
-            <tbody>
-              {stockProducts.map(({ produk, stok, kadaluarsa, produkTerlaris }) => (
-                <tr key={produk} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                  <td className="border border-gray-300 dark:border-gray-600 px-4 py-2">{produk}</td>
-                  <td className="border border-gray-300 dark:border-gray-600 px-4 py-2">{stok}</td>
-                  <td className="border border-gray-300 dark:border-gray-600 px-4 py-2">{kadaluarsa}</td>
-                  <td className="border border-gray-300 dark:border-gray-600 px-4 py-2">
-                    {produkTerlaris ? "Ya" : "Tidak"}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-            Notifikasi stok menipis dan produk mendekati kadaluarsa perlu diintegrasikan untuk tindakan preventif.
-          </p>
-          <p className="text-sm text-gray-600 dark:text-gray-400">
-            Pengaturan harga jual otomatis dan harga grosir dapat ditambahkan sesuai kebutuhan.
-          </p>
-        </div>
-      </section>
+      {/* Stok */}
+      <DataTable
+        title="Manajemen Stok dan Produk"
+        data={stockProducts}
+        columns={["produk", "stok", "kadaluarsa", "produkTerlaris"]}
+        format={{
+          produkTerlaris: (val) => (val ? "Ya" : "Tidak"),
+        }}
+      />
 
-      {/* Laporan dan Analisis Keuangan */}
+      {/* Laporan Keuangan */}
       <section className="mb-10 bg-white dark:bg-gray-800 rounded-lg shadow p-6">
         <h2 className="text-2xl font-semibold mb-4">Laporan dan Analisis Keuangan</h2>
         <ul className="list-disc list-inside mb-4">
-       
+          <li>Laba/Rugi: Rp {financialReport.labaRugi.toLocaleString()}</li>
           <li>Arus Kas: Rp {financialReport.arusKas.toLocaleString()}</li>
           <li>Analisis: {financialReport.analisis}</li>
         </ul>
@@ -279,7 +186,49 @@ export default function Dashboard() {
           Laporan otomatis dan akurat untuk mendukung pengambilan keputusan berbasis data real-time.
         </p>
       </section>
-
     </div>
+  );
+}
+
+// Komponen kecil untuk kartu statistik
+function StatCard({ title, value }) {
+  return (
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+      <h2 className="text-lg font-medium mb-2">{title}</h2>
+      <p className="text-3xl font-bold">{value}</p>
+    </div>
+  );
+}
+
+// Komponen kecil untuk tabel data
+function DataTable({ title, data, columns, format = {} }) {
+  return (
+    <section className="mb-10">
+      <h2 className="text-2xl font-semibold mb-4">{title}</h2>
+      <div className="overflow-x-auto">
+        <table className="min-w-full table-auto border-collapse border border-gray-300 dark:border-gray-700 text-sm">
+          <thead>
+            <tr className="bg-gray-100 dark:bg-gray-700">
+              {columns.map((col) => (
+                <th key={col} className="border px-4 py-2 text-left capitalize">
+                  {col.replace(/([A-Z])/g, " $1")}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((row, idx) => (
+              <tr key={idx} className="hover:bg-gray-50 dark:hover:bg-gray-700">
+                {columns.map((col) => (
+                  <td key={col} className="border px-4 py-2">
+                    {format[col] ? format[col](row[col]) : row[col]}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
   );
 }
