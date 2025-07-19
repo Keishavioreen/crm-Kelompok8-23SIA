@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.50.2",
-    "chart.js": "^4.4.9",
+    "axios": "^1.10.0",
+    "chart.js": "^4.5.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.511.0",
     "nanoid": "^5.1.5",

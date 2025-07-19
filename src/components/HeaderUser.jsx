@@ -151,6 +151,9 @@ const HeaderUser = () => {
           <Link to="/produk" className="hover:text-blue-300 transition">
             Produk
           </Link>
+          <Link to="/rekomendasi" className="hover:text-blue-300 transition">
+            Rekomendasi
+          </Link>
           <Link to="/faquser" className="hover:text-blue-300 transition">
             FAQ
           </Link>
