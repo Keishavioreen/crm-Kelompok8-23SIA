@@ -15,7 +15,8 @@ import {
   CreditCard,
   Inbox,
   CalendarCheck,
-  Activity
+  Activity,
+  Target
 } from 'lucide-react';
 
 import { Link, useLocation } from 'react-router-dom';
@@ -35,6 +36,7 @@ const menuItems = [
   { name: 'KelolaAppointment', icon: <CalendarCheck />, path: '/Appointment' },
   { name: 'Analisis', icon: <Activity />, path: '/Analisis' },
   { name: 'Email', icon: <Inbox />, path: '/email' },
+  { name: 'Prediksi', icon: <Target />, path: '/Prediksi' },
 ];
 
 const accountItems = [

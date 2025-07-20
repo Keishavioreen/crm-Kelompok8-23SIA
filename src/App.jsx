@@ -46,6 +46,7 @@ import EmailTemplateForm from './pages/Email/EmailTemplateForm';
 // Auth
 import Signin from './pages/Signin';
 import Signup from './pages/Signup';
+import PrediksiLoyalitas from './pages/PrediksiLoyalitas';
 
 export default function App() {
   return (
@@ -79,6 +80,8 @@ export default function App() {
             <Route path="/appointment" element={<KelolaAppointment />} />
             <Route path="/analisis" element={<Analytics />} />
             <Route path="/kelola-analytics" element={<KelolaAnalytics />} />
+            <Route path="/Prediksi" element={<PrediksiLoyalitas />} />
+
 
             {/* Email Module */}
             <Route path="/email" element={<EmailInbox />} />
