@@ -35,6 +35,7 @@ import AkunUser from './pages/AkunUser';
 import ProductUser from './pages/ProductUser';
 import FaqPage from './pages/FaqPage';
 import CartPage from './pages/CartPage';
+import Rekomendasi from './pages/Rekomendasi';
 import DetailTrigger from './pages/DetailTrigger';
 import HomeUser from './pages/HomeUser';
 
@@ -97,6 +98,7 @@ export default function App() {
             <Route path="/akun" element={<AkunUser />} />
             <Route path="/produk" element={<ProductUser />} />
             <Route path="/faquser" element={<FaqPage />} />
+            <Route path="/rekomendasi" element={<Rekomendasi />} />
             <Route path="/keranjang" element={<CartPage />} />
             <Route path="/detailtrigger/:id" element={<DetailTrigger />} />
             <Route path="/home" element={<HomeUser />} />

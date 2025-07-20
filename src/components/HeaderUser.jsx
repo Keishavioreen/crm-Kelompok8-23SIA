@@ -189,6 +189,24 @@ const HeaderUser = () => {
           <Link to="/faquser" className="hover:text-blue-300 transition">FAQ</Link>
           <Link to="/tentangkami" className="hover:text-blue-300 transition">Tentang Kami</Link>
           <Link to="/kontak" className="hover:text-blue-300 transition">Kontak</Link>
+          <Link to="/home" className="hover:text-blue-300 transition">
+            Home
+          </Link>
+          <Link to="/produk" className="hover:text-blue-300 transition">
+            Produk
+          </Link>
+          <Link to="/rekomendasi" className="hover:text-blue-300 transition">
+            Rekomendasi
+          </Link>
+          <Link to="/faquser" className="hover:text-blue-300 transition">
+            FAQ
+          </Link>
+          <Link to="/tentangkami" className="hover:text-blue-300 transition">
+            Tentang Kami
+          </Link>
+          <Link to="/kontak" className="hover:text-blue-300 transition">
+            Kontak
+          </Link>
         </div>
       </div>
     </header>
