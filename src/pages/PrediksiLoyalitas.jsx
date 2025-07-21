@@ -1,123 +1,113 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import axios from "axios";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
+
+const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
 const PrediksiLoyalitas = () => {
   const [formData, setFormData] = useState({
-    nama_pelanggan: '',
-    point: '',
-    history_transaksi: '',
-    total_belanja: '',
-    frekuensi_kunjungan: '',
+    nama: "",
+    point: "",
+    history_transaksi: "",
+    total_belanja: "",
+    frekuensi_kunjungan: "",
   });
-  const [hasilPrediksi, setHasilPrediksi] = useState(null);
-  const [errorPrediksi, setErrorPrediksi] = useState('');
-  const [reportImg, setReportImg] = useState(null);
-  const [errorImg, setErrorImg] = useState('');
 
-  const backendURL = 'https://006dd5f418a2.ngrok-free.app'; // Ganti sesuai ngrok aktif
+  const [hasil, setHasil] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData({ ...formData, [name]: value.trimStart() });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const payload = {
-      Point: Number(formData.point) || 0,
-      History_Transaksi: Number(formData.history_transaksi) || 0,
-      Total_Belanja: Number(formData.total_belanja) || 0,
-      Frekuensi_Kunjungan: Number(formData.frekuensi_kunjungan) || 0,
-    };
-
+    setLoading(true);
     try {
-      const response = await fetch(`${backendURL}/predict`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+      const response = await axios.post("https://0a2812bf2e16.ngrok-free.app/predict", {
+        ...formData,
+        point: parseInt(formData.point),
+        history_transaksi: parseInt(formData.history_transaksi),
+        total_belanja: parseInt(formData.total_belanja),
+        frekuensi_kunjungan: parseInt(formData.frekuensi_kunjungan),
       });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setHasilPrediksi(data.Status_Loyalitas);
-        setErrorPrediksi('');
-        setReportImg(`${backendURL}/grafik`);
-        setErrorImg('');
-      } else {
-        setHasilPrediksi(null);
-        setErrorPrediksi(data.error || 'Kesalahan saat prediksi');
-        setReportImg(null);
-      }
-    } catch {
-      setHasilPrediksi(null);
-      setErrorPrediksi('Gagal terhubung ke server!');
-      setReportImg(null);
+      setHasil(response.data);
+    } catch (error) {
+      console.error("Gagal mendapatkan data:", error);
+      setHasil(null);
+    } finally {
+      setLoading(false);
     }
   };
 
-  return (
-    <div className="max-w-3xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
-      <h2 className="text-3xl font-bold text-center mb-8 text-teal-800">Prediksi Loyalitas Pelanggan</h2>
+  // Pie Chart Data
+  const dataPie = hasil?.klasifikasi // sebelumnya: hasil?.classification_report
+  ? Object.entries(hasil.klasifikasi)
+      .filter(([key]) => !["accuracy", "macro avg", "weighted avg"].includes(key))
+      .map(([key, value]) => ({
+        name: key,
+        value: value.support,
+      }))
+  : [];
 
-      <form onSubmit={handleSubmit} className="space-y-4 border p-6 rounded-md shadow-md">
-        <h3 className="font-semibold mb-4">Form Input Data Pelanggan</h3>
-        <div>
-          <label className="block mb-1 font-medium">Nama Pelanggan:</label>
-          <input
-            type="text"
-            name="nama_pelanggan"
-            value={formData.nama_pelanggan}
-            onChange={handleChange}
-            required
-            className="w-full px-3 py-2 border rounded-md bg-blue-50"
-          />
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          {['point', 'history_transaksi', 'total_belanja', 'frekuensi_kunjungan'].map((field, idx) => (
-            <div key={idx}>
-              <label className="block mb-1 font-medium">
-                {field === 'point' && 'Point:'}
-                {field === 'history_transaksi' && 'History Transaksi:'}
-                {field === 'total_belanja' && 'Total Belanja (Rp):'}
-                {field === 'frekuensi_kunjungan' && 'Frekuensi Kunjungan:'}
-              </label>
-              <input
-                type="number"
-                name={field}
-                value={formData[field]}
-                onChange={handleChange}
-                min={0}
-                required
-                className="w-full px-3 py-2 border rounded-md"
-              />
-            </div>
-          ))}
-        </div>
-        <button type="submit" className="w-full py-2 mt-4 bg-teal-700 text-white font-semibold rounded-md hover:bg-teal-800">
-          Prediksi Loyalitas
+
+  return (
+    <div className="p-6 max-w-3xl mx-auto">
+      <h1 className="text-2xl font-bold mb-4 text-center text-[#007676]">
+        Prediksi Loyalitas Pelanggan
+      </h1>
+
+      <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4 bg-white p-6 rounded shadow">
+        <input type="text" name="nama" value={formData.nama} placeholder="Nama Pelanggan" onChange={handleChange} required className="border p-2 rounded" />
+        <input type="number" name="point" value={formData.point} placeholder="Point" onChange={handleChange} required className="border p-2 rounded" />
+        <input type="number" name="history_transaksi" value={formData.history_transaksi} placeholder="History Transaksi" onChange={handleChange} required className="border p-2 rounded" />
+        <input type="number" name="total_belanja" value={formData.total_belanja} placeholder="Total Belanja (Rp)" onChange={handleChange} required className="border p-2 rounded" />
+        <input type="number" name="frekuensi_kunjungan" value={formData.frekuensi_kunjungan} placeholder="Frekuensi Kunjungan" onChange={handleChange} required className="border p-2 rounded" />
+        <button type="submit" disabled={loading} className="py-2 px-4 rounded transition text-white bg-[#007676]">
+          {loading ? "Memproses..." : "Prediksi Sekarang"}
         </button>
       </form>
 
-      {hasilPrediksi && (
-        <div className="mt-6 p-4 bg-green-100 text-green-900 rounded-md text-center font-semibold text-lg">
-          Status Loyalitas: <span className="font-bold">{hasilPrediksi}</span>
+      {hasil && (
+        <div className="mt-8">
+          <h2 className="text-xl font-semibold text-[#007676] mb-2">Hasil Prediksi</h2>
+          <div className="p-4 bg-white border rounded shadow mb-4">
+            <p><strong>Nama:</strong> {hasil.nama}</p>
+            <p><strong>Status Loyalitas:</strong> {hasil.status_loyalitas}</p>
+            <p><strong>Akurasi Model:</strong> {hasil.akurasi_model}%</p>
+          </div>
+
+          {dataPie.length > 0 && (
+            <div className="mt-6 bg-white p-4 rounded shadow">
+              <h3 className="font-semibold mb-4 text-center">Distribusi Support per Kelas</h3>
+              <ResponsiveContainer width="100%" height={300}>
+                <PieChart width={400} height={300}>
+                  <Pie
+                    data={dataPie}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={100}
+                    label
+                  >
+                    {dataPie.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                  <Legend />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+          )}
         </div>
       )}
-      {errorPrediksi && (
-        <div className="mt-6 p-4 bg-red-100 text-red-800 rounded-md text-center font-semibold">
-          {errorPrediksi}
-        </div>
-      )}
-      {reportImg && (
-        <div className="mt-6 text-center">
-          <h4 className="font-semibold mb-2 text-gray-700">Grafik Evaluasi Model</h4>
-          <img src={reportImg} alt="Confusion Matrix" className="mx-auto border rounded-md shadow-md" />
-        </div>
-      )}
-      {errorImg && (
-        <div className="mt-6 p-4 bg-red-100 text-red-800 rounded-md text-center font-semibold">
-          {errorImg}
+
+      {hasil === null && !loading && (
+        <div className="mt-4 text-red-600 font-medium">
+          Gagal mendapatkan prediksi. Periksa input dan koneksi server.
         </div>
       )}
     </div>
